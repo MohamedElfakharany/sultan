@@ -49,7 +49,7 @@ class _MapScreenState extends State<MapScreen> {
     if (Platform.isAndroid) {
       getAddressBasedOnLocation(lat: mLatitude, long: mLongitude);
     } else {
-      Timer(const Duration(seconds: 1), () {
+      Timer(const Duration(seconds: 0), () {
         setState(() async {
           position = await geolocator.Geolocator.getCurrentPosition(
                   desiredAccuracy: geolocator.LocationAccuracy.high)
