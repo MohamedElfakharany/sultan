@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "711990167248",
+    "project_id": "hq-laboratory",
+    "storage_bucket": "hq-laboratory.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:711990167248:android:daa95924fb03ac237300d5",
+        "android_client_info": {
+          "package_name": "com.orcavision.sultan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "711990167248-p1aij1ffkrkjl7sbbo27o0i9cssg9hbt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.orcavision.sultan",
+            "certificate_hash": "0afd5fe963c793c29e39b3b29695c94387696756"
+          }
+        },
+        {
+          "client_id": "711990167248-kqr6cb998fhn003eanf170hmv90cvjbh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_eYodO40DmGH8PoGhmhYtV__0DDjGhZo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "711990167248-kqr6cb998fhn003eanf170hmv90cvjbh.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "711990167248-9bfqkeq4073p1v307dam56o6e3gdtc02.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.orcavision.hq"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
