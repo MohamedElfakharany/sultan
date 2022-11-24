@@ -10,16 +10,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:hq/cubit/cubit.dart';
-import 'package:hq/cubit/states.dart';
-import 'package:hq/screens/main_screens/card_screen.dart';
-import 'package:hq/screens/main_screens/notification_screen.dart';
-import 'package:hq/screens/main_screens/search_screen.dart';
-import 'package:hq/shared/components/cached_network_image.dart';
-import 'package:hq/shared/constants/colors.dart';
-import 'package:hq/shared/constants/general_constants.dart';
-import 'package:hq/shared/network/local/const_shared.dart';
-import 'package:hq/translations/locale_keys.g.dart';
+import 'package:sultan/cubit/cubit.dart';
+import 'package:sultan/cubit/states.dart';
+import 'package:sultan/screens/main_screens/card_screen.dart';
+import 'package:sultan/screens/main_screens/notification_screen.dart';
+import 'package:sultan/screens/main_screens/search_screen.dart';
+import 'package:sultan/shared/components/cached_network_image.dart';
+import 'package:sultan/shared/constants/colors.dart';
+import 'package:sultan/shared/constants/general_constants.dart';
+import 'package:sultan/shared/network/local/const_shared.dart';
+import 'package:sultan/translations/locale_keys.g.dart';
 
 void navigateAndFinish(context, widget) => Navigator.pushAndRemoveUntil(
       context,
@@ -103,8 +103,8 @@ class GeneralButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialButton(
-      onPressed: () {
+    return InkWell(
+      onTap: () {
         onPress();
       },
       child: Container(
@@ -171,7 +171,7 @@ class GeneralUnfilledButton extends StatelessWidget {
               color: Colors.grey.withOpacity(0.15),
               spreadRadius: 2,
               blurRadius: 2,
-              offset: const Offset(0, 2),
+              offset: Offset(0, 2),
             ),
           ],
           color: whiteColor,
@@ -283,7 +283,7 @@ class GeneralHomeLayoutAppBar extends StatelessWidget with PreferredSizeWidget {
               Navigator.push(
                 context,
                 FadeRoute(
-                  page: const CartScreen(),
+                  page: CartScreen(),
                 ),
               );
             }
@@ -958,8 +958,8 @@ void showCustomBottomSheet(
   required double bottomSheetHeight,
 }) {
   showModalBottomSheet(
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(
+      shape: RoundedRectangleBorder(
+        borderRadius: const BorderRadius.vertical(
           top: Radius.circular(20.0),
         ),
       ),
@@ -982,11 +982,10 @@ class MySeparator extends StatelessWidget {
   final double height;
   final Color color;
 
-  const MySeparator({
-    super.key,
+  const MySeparator({Key? key,
     this.height = 1,
     this.color = greyLightColor,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

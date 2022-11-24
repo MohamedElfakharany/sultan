@@ -6,17 +6,17 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_swipe_action_cell/flutter_swipe_action_cell.dart';
-import 'package:hq/cubit/cubit.dart';
-import 'package:hq/cubit/states.dart';
-import 'package:hq/models/patient_models/test_models/offers_model.dart';
-import 'package:hq/models/patient_models/test_models/tests_model.dart';
-import 'package:hq/screens/main_screens/reservations/reserved_success_screen.dart';
-import 'package:hq/shared/components/cached_network_image.dart';
-import 'package:hq/shared/components/general_components.dart';
-import 'package:hq/shared/constants/colors.dart';
-import 'package:hq/shared/constants/general_constants.dart';
-import 'package:hq/shared/network/local/const_shared.dart';
-import 'package:hq/translations/locale_keys.g.dart';
+import 'package:sultan/cubit/cubit.dart';
+import 'package:sultan/cubit/states.dart';
+import 'package:sultan/models/patient_models/test_models/offers_model.dart';
+import 'package:sultan/models/patient_models/test_models/tests_model.dart';
+import 'package:sultan/screens/main_screens/reservations/reserved_success_screen.dart';
+import 'package:sultan/shared/components/cached_network_image.dart';
+import 'package:sultan/shared/components/general_components.dart';
+import 'package:sultan/shared/constants/colors.dart';
+import 'package:sultan/shared/constants/general_constants.dart';
+import 'package:sultan/shared/network/local/const_shared.dart';
+import 'package:sultan/translations/locale_keys.g.dart';
 import 'package:keyboard_actions/keyboard_actions.dart';
 
 class HomeReservationOverviewScreen extends StatefulWidget {
@@ -49,13 +49,6 @@ class HomeReservationOverviewScreen extends StatefulWidget {
 
 class _HomeReservationOverviewScreenState
     extends State<HomeReservationOverviewScreen> {
-  @override
-  void initState() {
-    super.initState();
-    if (widget.testsDataModel == null && widget.offersDataModel == null) {
-      AppCubit.get(context).getCart();
-    }
-  }
 
   var couponController = TextEditingController();
 
@@ -68,7 +61,7 @@ class _HomeReservationOverviewScreenState
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit, AppStates>(
       listener: (context, state) {
-        if (state is AppCheckCouponSuccessState) {
+        if (state is AppCheckCouponSuccessState)  {
           if (state.successModel.status) {
             AppCubit.get(context).getInvoices(testId: [
               widget.testsDataModel?.id ?? widget.offersDataModel?.id
@@ -153,17 +146,6 @@ class _HomeReservationOverviewScreenState
         }
       },
       builder: (context, state) {
-        if (kDebugMode) {
-          print('date ya ro7 omak ${widget.date}');
-          print('familyId ya ro7 omak ${widget.familyId}');
-          print('time ya ro7 omak ${widget.time}');
-          print('branchId ya ro7 omak ${widget.branchId}');
-          print('familyName ya ro7 omak ${widget.familyName}');
-          print('test id ya ro7 omak ${widget.testsDataModel?.id}');
-          print('offers id ya ro7 omak ${widget.offersDataModel?.id}');
-          print(
-              'cartModel ya ro7 omak ${AppCubit.get(context).cartModel?.extra?.tests?.toSet()}');
-        }
         var cartModel = AppCubit.get(context).cartModel;
         return Scaffold(
           backgroundColor: greyExtraLightColor,
@@ -464,8 +446,8 @@ class _HomeReservationOverviewScreenState
                                       MediaQuery.of(context).size.width *
                                           0.7,
                                       child: Text(
-                                        textAlign: TextAlign.start,
                                         widget.branchName,
+                                        textAlign: TextAlign.start,
                                         style: titleSmallStyle,
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
@@ -500,8 +482,8 @@ class _HomeReservationOverviewScreenState
                                           color: greyLightColor),
                                     ),
                                     Text(
-                                      textAlign: TextAlign.start,
                                       '${widget.date} - ${widget.time}',
+                                      textAlign: TextAlign.start,
                                       style: titleSmallStyle,
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
@@ -579,7 +561,7 @@ class _HomeReservationOverviewScreenState
                         condition: state is! AppCheckCouponLoadingState &&
                             state is! AppGetInvoicesLoadingState,
                         builder: (context) => Container(
-                          height: 140.0,
+                          height: 150.0,
                           width: double.infinity,
                           decoration: BoxDecoration(
                             color: whiteColor,
@@ -623,8 +605,8 @@ class _HomeReservationOverviewScreenState
                                         ),
                                         const Spacer(),
                                         Text(
-                                          textAlign: TextAlign.start,
                                           '${widget.offersDataModel?.discount ?? widget.testsDataModel?.price} ${LocaleKeys.salary.tr()}',
+                                          textAlign: TextAlign.start,
                                           style: titleSmallStyle,
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
@@ -705,8 +687,8 @@ class _HomeReservationOverviewScreenState
                                         ),
                                         const Spacer(),
                                         Text(
-                                          textAlign: TextAlign.start,
                                           '${cartModel?.data?.length ?? 1}',
+                                          textAlign: TextAlign.start,
                                           style: titleSmallStyle,
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
@@ -726,8 +708,8 @@ class _HomeReservationOverviewScreenState
                                         ),
                                         const Spacer(),
                                         Text(
-                                          textAlign: TextAlign.start,
                                           '${cartModel?.extra?.price} ${LocaleKeys.salary.tr()}',
+                                          textAlign: TextAlign.start,
                                           style: titleSmallStyle,
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
@@ -747,8 +729,8 @@ class _HomeReservationOverviewScreenState
                                         ),
                                         const Spacer(),
                                         Text(
+                                          cartModel?.extra?.tax,
                                           textAlign: TextAlign.start,
-                                          '${cartModel?.extra?.tax}',
                                           style: titleSmallStyle,
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
@@ -770,8 +752,8 @@ class _HomeReservationOverviewScreenState
                                         ),
                                         const Spacer(),
                                         Text(
-                                          textAlign: TextAlign.start,
                                           '${cartModel?.extra?.total} ${LocaleKeys.salary.tr()}',
+                                          textAlign: TextAlign.start,
                                           style: titleSmallStyle,
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
@@ -859,7 +841,7 @@ class _HomeReservationOverviewScreenState
                                 date: widget.date,
                                 time: widget.time,
                                 familyId: widget.familyId,
-                                branchId: extraBranchId!,
+                                // branchId: extraBranchId!,
                                 coupon: couponController.text,
                                 testId: ['${widget.testsDataModel?.id}'],
                                 addressId: widget.addressId,

@@ -34,18 +34,18 @@ const ofWhiteColor = Color(0xFFF8F9FD);
 
 const whiteColor = Color(0xFFFFFFFF);
 
-const blueGreenGradient = LinearGradient(
-  colors: [Color(0xFF0099CC),Color(0xFF99FF66)],
+var blueGreenGradient = LinearGradient(
+  colors: const [Color(0xFF0099CC),Color(0xFF99FF66)],
   tileMode: TileMode.clamp,
   begin: Alignment.topLeft,
   end: Alignment.bottomRight,
-  stops: [0.0,0.0],
+  stops: const [0.0,0.0],
 );
 
-const transparentGradient = LinearGradient(
-  colors: [Color(0xFF000000),Color(0xFF000000)],
+var transparentGradient = LinearGradient(
+  colors: const [Color(0xFF000000),Color(0xFF000000)],
   tileMode: TileMode.clamp,
   begin: Alignment.topLeft,
   end: Alignment.bottomRight,
-  stops: [0.0,1.0],
+  stops: const [0.0,1.0],
 );

@@ -5,26 +5,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:hq/cubit/cubit.dart';
-import 'package:hq/cubit/states.dart';
-import 'package:hq/models/patient_models/profile_models/notifications_model.dart';
-import 'package:hq/models/patient_models/test_models/categories_model.dart';
-import 'package:hq/models/patient_models/test_models/offers_model.dart';
-import 'package:hq/models/patient_models/test_models/tests_model.dart';
-import 'package:hq/screens/intro_screens/startup/onboarding_screen.dart';
-import 'package:hq/screens/main_screens/card_screen.dart';
-import 'package:hq/screens/main_screens/home_layout_screen.dart';
-import 'package:hq/screens/main_screens/test_items_screen/test_details_screen.dart';
-import 'package:hq/shared/components/cached_network_image.dart';
-import 'package:hq/shared/components/general_components.dart';
-import 'package:hq/shared/constants/colors.dart';
-import 'package:hq/shared/constants/general_constants.dart';
-import 'package:hq/shared/network/local/const_shared.dart';
-import 'package:hq/translations/locale_keys.g.dart';
+import 'package:sultan/cubit/cubit.dart';
+import 'package:sultan/cubit/states.dart';
+import 'package:sultan/models/patient_models/profile_models/notifications_model.dart';
+import 'package:sultan/models/patient_models/test_models/categories_model.dart';
+import 'package:sultan/models/patient_models/test_models/offers_model.dart';
+import 'package:sultan/models/patient_models/test_models/tests_model.dart';
+import 'package:sultan/screens/intro_screens/startup/onboarding_screen.dart';
+import 'package:sultan/screens/main_screens/card_screen.dart';
+import 'package:sultan/screens/main_screens/home_layout_screen.dart';
+import 'package:sultan/screens/main_screens/test_items_screen/test_details_screen.dart';
+import 'package:sultan/shared/components/cached_network_image.dart';
+import 'package:sultan/shared/components/general_components.dart';
+import 'package:sultan/shared/constants/colors.dart';
+import 'package:sultan/shared/constants/general_constants.dart';
+import 'package:sultan/shared/network/local/const_shared.dart';
+import 'package:sultan/translations/locale_keys.g.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class LabCalenderView extends StatefulWidget {
-  const LabCalenderView({super.key});
+   const LabCalenderView({Key? key,}) : super(key: key);
 
   @override
   _LabCalenderViewState createState() => _LabCalenderViewState();
@@ -131,37 +131,19 @@ class _LabCalenderViewState extends State<LabCalenderView> {
 
                         AppCubit.get(context).getLabAppointments(
                             date:
-                                '${selectedDay.year.toString()}-${month.toString()}-${day.toString()}');
+                            '${selectedDay.year.toString()}-${month
+                                .toString()}-${day.toString()}');
                       },
                       availableCalendarFormats: const {
                         CalendarFormat.month: 'Month',
                       },
                       headerStyle: HeaderStyle(
                         headerPadding: EdgeInsets.symmetric(horizontal: 0.2.sw),
-                        // rightChevronIcon: Transform.rotate(
-                        //     angle: Provider.of<LocalizationController>(context,
-                        //                     listen: false)
-                        //                 .locale
-                        //                 .languageCode ==
-                        //             "ar"
-                        //         ? rightRotationAngle
-                        //         : leftRotationAngle,
-                        //     child: SvgPicture.asset("assets/dropDownArrow.svg",
-                        //         color: greenBlue, height: 0.03.sw)),
-                        // leftChevronIcon: Transform.rotate(
-                        //     angle: Provider.of<LocalizationController>(context,
-                        //                     listen: false)
-                        //                 .locale
-                        //                 .languageCode ==
-                        //             "ar"
-                        //         ? leftRotationAngle
-                        //         : rightRotationAngle,
-                        //     child: SvgPicture.asset("assets/dropDownArrow.svg",
-                        //         color: greenBlue, height: 0.03.sw)),
+
                       ),
                       calendarStyle: const CalendarStyle(
                         selectedTextStyle:
-                            TextStyle(color: whiteColor, fontSize: 20),
+                        TextStyle(color: whiteColor, fontSize: 20),
                         todayDecoration: BoxDecoration(),
                         todayTextStyle: TextStyle(
                             color: greenColor,
@@ -171,16 +153,16 @@ class _LabCalenderViewState extends State<LabCalenderView> {
                             color: greenColor, shape: BoxShape.circle),
                         defaultDecoration: BoxDecoration(),
                         holidayDecoration:
-                            BoxDecoration(shape: BoxShape.circle),
+                        BoxDecoration(shape: BoxShape.circle),
                         weekendDecoration:
-                            BoxDecoration(shape: BoxShape.circle),
+                        BoxDecoration(shape: BoxShape.circle),
                         rangeEndDecoration:
-                            BoxDecoration(shape: BoxShape.circle),
+                        BoxDecoration(shape: BoxShape.circle),
                         outsideDecoration: BoxDecoration(
                           shape: BoxShape.circle,
                         ),
                         disabledDecoration:
-                            BoxDecoration(shape: BoxShape.circle),
+                        BoxDecoration(shape: BoxShape.circle),
                         // weekendTextStyle: const TextStyle(
                         //   color: blueColor,
                         // ),
@@ -190,24 +172,6 @@ class _LabCalenderViewState extends State<LabCalenderView> {
                       ),
                       // formatAnimationCurve: Curves.easeIn,
                       availableGestures: AvailableGestures.horizontalSwipe,
-                      // calendarBuilders: CalendarBuilders<SessionModel>(
-                      //   dowBuilder: (context, day) {
-                      //     return Center(
-                      //       child: ExcludeSemantics(
-                      //         child: Text(
-                      //           "${DateFormat.E("en").format(day)}",
-                      //           style: TextStyle(
-                      //               color: !_isCurrentMonthChanged &&
-                      //                       DateFormat.E("en_US").format(_today) ==
-                      //                           DateFormat.E("en_US").format(day)
-                      //                   ? Theme.of(context).primaryColor
-                      //                   : dustyTeal,
-                      //               fontWeight: FontWeight.w400),
-                      //         ),
-                      //       ),
-                      //     );
-                      //   },
-                      // ),
                     ),
                   ),
                 ),
@@ -224,7 +188,7 @@ class _LabCalenderViewState extends State<LabCalenderView> {
 }
 
 class HomeCalenderView extends StatefulWidget {
-  const HomeCalenderView({super.key});
+  const HomeCalenderView({Key? key}) : super(key: key);
 
   @override
   _HomeCalenderViewState createState() => _HomeCalenderViewState();
@@ -333,7 +297,8 @@ class _HomeCalenderViewState extends State<HomeCalenderView> {
 
                         AppCubit.get(context).getHomeAppointments(
                             date:
-                                '${selectedDay.year.toString()}-${month.toString()}-${day.toString()}');
+                            '${selectedDay.year.toString()}-${month
+                                .toString()}-${day.toString()}');
                       },
                       availableCalendarFormats: const {
                         CalendarFormat.month: 'Month',
@@ -363,7 +328,7 @@ class _HomeCalenderViewState extends State<HomeCalenderView> {
                       ),
                       calendarStyle: const CalendarStyle(
                         selectedTextStyle:
-                            TextStyle(color: whiteColor, fontSize: 20),
+                        TextStyle(color: whiteColor, fontSize: 20),
                         todayDecoration: BoxDecoration(),
                         todayTextStyle: TextStyle(
                             color: greenColor,
@@ -373,16 +338,16 @@ class _HomeCalenderViewState extends State<HomeCalenderView> {
                             color: greenColor, shape: BoxShape.circle),
                         defaultDecoration: BoxDecoration(),
                         holidayDecoration:
-                            BoxDecoration(shape: BoxShape.circle),
+                        BoxDecoration(shape: BoxShape.circle),
                         weekendDecoration:
-                            BoxDecoration(shape: BoxShape.circle),
+                        BoxDecoration(shape: BoxShape.circle),
                         rangeEndDecoration:
-                            BoxDecoration(shape: BoxShape.circle),
+                        BoxDecoration(shape: BoxShape.circle),
                         outsideDecoration: BoxDecoration(
                           shape: BoxShape.circle,
                         ),
                         disabledDecoration:
-                            BoxDecoration(shape: BoxShape.circle),
+                        BoxDecoration(shape: BoxShape.circle),
                         // weekendTextStyle: const TextStyle(
                         //   color: blueColor,
                         // ),
@@ -435,7 +400,10 @@ class OffersCard extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         return Container(
-          width: MediaQuery.of(context).size.width * 0.9,
+          width: MediaQuery
+              .of(context)
+              .size
+              .width * 0.9,
           height: 235,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(radius),
@@ -451,7 +419,10 @@ class OffersCard extends StatelessWidget {
                     CachedNetworkImageNormal(
                       imageUrl: offersDataModel.image,
                       height: 165,
-                      width: MediaQuery.of(context).size.width * 0.9,
+                      width: MediaQuery
+                          .of(context)
+                          .size
+                          .width * 0.9,
                     ),
                     Padding(
                       padding: const EdgeInsets.all(10.0),
@@ -497,30 +468,32 @@ class OffersCard extends StatelessWidget {
                                 ),
                               ),
                             )
-                          else if (offersDataModel.gender == 'Female')
-                            Container(
-                              height: 30,
-                              width: 80,
-                              decoration: BoxDecoration(
-                                color: pinkColor,
-                                borderRadius: BorderRadius.circular(radius),
-                              ),
-                              child: Center(
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      offersDataModel.gender,
-                                      style: const TextStyle(color: whiteColor),
-                                    ),
-                                    const Icon(
-                                      Icons.female,
-                                      color: whiteColor,
-                                    )
-                                  ],
+                          else
+                            if (offersDataModel.gender == 'Female')
+                              Container(
+                                height: 30,
+                                width: 80,
+                                decoration: BoxDecoration(
+                                  color: pinkColor,
+                                  borderRadius: BorderRadius.circular(radius),
+                                ),
+                                child: Center(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        offersDataModel.gender,
+                                        style: const TextStyle(
+                                            color: whiteColor),
+                                      ),
+                                      const Icon(
+                                        Icons.female,
+                                        color: whiteColor,
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
                         ],
                       ),
                     ),
@@ -529,7 +502,7 @@ class OffersCard extends StatelessWidget {
               ),
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+                const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
                 child: Text(
                   offersDataModel.title,
                   style: titleSmallStyle2,
@@ -614,11 +587,10 @@ class CategoriesCard extends StatelessWidget {
 }
 
 class TestItemCard extends StatelessWidget {
-  TestItemCard(
-      {Key? key,
-      required this.index,
-      this.offersDataModel,
-      this.testsDataModel})
+  TestItemCard({Key? key,
+    required this.index,
+    this.offersDataModel,
+    this.testsDataModel})
       : super(key: key);
   TestsDataModel? testsDataModel;
   OffersDataModel? offersDataModel;
@@ -649,10 +621,11 @@ class TestItemCard extends StatelessWidget {
                 children: [
                   horizontalMicroSpace,
                   CachedNetworkImageNormal(
-                    imageUrl: AppCubit.get(context)
-                            .testsModel
-                            ?.data?[index]
-                            .image ??
+                    imageUrl: AppCubit
+                        .get(context)
+                        .testsModel
+                        ?.data?[index]
+                        .image ??
                         '',
                     width: 80,
                     height: 80,
@@ -664,20 +637,22 @@ class TestItemCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          AppCubit.get(context)
-                                  .testsModel
-                                  ?.data?[index]
-                                  .title ??
+                          AppCubit
+                              .get(context)
+                              .testsModel
+                              ?.data?[index]
+                              .title ??
                               '',
                           style: titleStyle,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
                         Text(
-                          AppCubit.get(context)
-                                  .testsModel
-                                  ?.data?[index]
-                                  .description ??
+                          AppCubit
+                              .get(context)
+                              .testsModel
+                              ?.data?[index]
+                              .description ??
                               '',
                           style: subTitleSmallStyle2,
                           maxLines: 1,
@@ -686,7 +661,11 @@ class TestItemCard extends StatelessWidget {
                         Row(
                           children: [
                             Text(
-                              '${AppCubit.get(context).testsModel?.data?[index].price} ${LocaleKeys.salary.tr()}',
+                              '${AppCubit
+                                  .get(context)
+                                  .testsModel
+                                  ?.data?[index].price} ${LocaleKeys.salary
+                                  .tr()}',
                               style: titleSmallStyle,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
@@ -707,7 +686,8 @@ class TestItemCard extends StatelessWidget {
                               context,
                               FadeRoute(
                                 page: TestDetailsScreen(
-                                    testsDataModel: AppCubit.get(context)
+                                    testsDataModel: AppCubit
+                                        .get(context)
                                         .testsModel!
                                         .data?[index]),
                               ),
@@ -717,7 +697,7 @@ class TestItemCard extends StatelessWidget {
                           child: Text(
                             LocaleKeys.txtDetails.tr(),
                             style:
-                                titleSmallStyle.copyWith(color: whiteColor),
+                            titleSmallStyle.copyWith(color: whiteColor),
                           ),
                         ),
                       ),
@@ -729,7 +709,7 @@ class TestItemCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Padding(
-                    padding: EdgeInsets.all(10.0),
+                    padding: const EdgeInsets.all(10.0),
                     child: Container(
                       height: 30,
                       width: 40,
@@ -741,10 +721,11 @@ class TestItemCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           horizontalMicroSpace,
-                          if (AppCubit.get(context)
-                                  .testsModel
-                                  ?.data?[index]
-                                  .gender ==
+                          if (AppCubit
+                              .get(context)
+                              .testsModel
+                              ?.data?[index]
+                              .gender ==
                               'Male')
                             const Center(
                               child: CircleAvatar(
@@ -757,10 +738,11 @@ class TestItemCard extends StatelessWidget {
                                 ),
                               ),
                             ),
-                          if (AppCubit.get(context)
-                                  .testsModel
-                                  ?.data?[index]
-                                  .gender ==
+                          if (AppCubit
+                              .get(context)
+                              .testsModel
+                              ?.data?[index]
+                              .gender ==
                               'Female')
                             const Center(
                               child: CircleAvatar(
@@ -777,12 +759,16 @@ class TestItemCard extends StatelessWidget {
                       ),
                     ),
                   ),
-                  if (AppCubit.get(context).isVisitor == false)
+                  if (AppCubit
+                      .get(context)
+                      .isVisitor == false)
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: InkWell(
                         onTap: () {
-                          if (AppCubit.get(context).isVisitor == false) {
+                          if (AppCubit
+                              .get(context)
+                              .isVisitor == false) {
                             showPopUp(
                               context,
                               const VisitorHoldingPopUp(),
@@ -791,7 +777,10 @@ class TestItemCard extends StatelessWidget {
                             showCustomBottomSheet(
                               context,
                               bottomSheetContent: Container(
-                                height: MediaQuery.of(context).size.height *
+                                height: MediaQuery
+                                    .of(context)
+                                    .size
+                                    .height *
                                     0.55,
                                 decoration: BoxDecoration(
                                   color: whiteColor,
@@ -804,9 +793,9 @@ class TestItemCard extends StatelessWidget {
                                     start: 20.0, end: 20.0),
                                 child: Column(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.center,
+                                  MainAxisAlignment.center,
                                   crossAxisAlignment:
-                                      CrossAxisAlignment.center,
+                                  CrossAxisAlignment.center,
                                   children: [
                                     verticalMicroSpace,
                                     Row(
@@ -827,7 +816,7 @@ class TestItemCard extends StatelessWidget {
                                     ),
                                     Text(
                                       LocaleKeys
-                                              .TxtPopUpReservationTypeSecond
+                                          .TxtPopUpReservationTypeSecond
                                           .tr(),
                                       style: subTitleSmallStyle.copyWith(
                                         fontSize: 15,
@@ -839,25 +828,25 @@ class TestItemCard extends StatelessWidget {
                                       decoration: BoxDecoration(
                                         color: whiteColor,
                                         borderRadius:
-                                            BorderRadius.circular(radius),
+                                        BorderRadius.circular(radius),
                                         border: Border.all(
                                           width: 1,
                                           color: greyDarkColor,
                                         ),
                                       ),
                                       alignment:
-                                          AlignmentDirectional.center,
+                                      AlignmentDirectional.center,
                                       padding: const EdgeInsets.symmetric(
                                           vertical: 0, horizontal: 4),
                                       child: Row(
                                         crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                         children: [
                                           Padding(
                                             padding:
-                                                const EdgeInsetsDirectional
-                                                        .only(
-                                                    start: 10.0, top: 10.0),
+                                            const EdgeInsetsDirectional
+                                                .only(
+                                                start: 10.0, top: 10.0),
                                             child: Image.asset(
                                               appLogo,
                                               width: 80,
@@ -868,25 +857,26 @@ class TestItemCard extends StatelessWidget {
                                           Expanded(
                                             child: Column(
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                              CrossAxisAlignment.start,
                                               mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                              MainAxisAlignment.center,
                                               children: [
                                                 verticalMiniSpace,
                                                 Text(
-                                                  AppCubit.get(context)
-                                                          .testsModel
-                                                          ?.data?[index]
-                                                          .title ??
+                                                  AppCubit
+                                                      .get(context)
+                                                      .testsModel
+                                                      ?.data?[index]
+                                                      .title ??
                                                       offersDataModel
                                                           ?.title,
                                                   style:
-                                                      titleStyle.copyWith(
-                                                          fontWeight:
-                                                              FontWeight
-                                                                  .normal),
+                                                  titleStyle.copyWith(
+                                                      fontWeight:
+                                                      FontWeight
+                                                          .normal),
                                                   overflow:
-                                                      TextOverflow.ellipsis,
+                                                  TextOverflow.ellipsis,
                                                 ),
                                                 // const Padding(
                                                 //   padding: EdgeInsets.symmetric(
@@ -901,26 +891,41 @@ class TestItemCard extends StatelessWidget {
                                                 Row(
                                                   children: [
                                                     Text(
-                                                      '${AppCubit.get(context).testsModel?.data?[index].price ?? AppCubit.get(context).offersModel?.data?[index].discount} ${LocaleKeys.salary.tr()}',
+                                                      '${AppCubit
+                                                          .get(context)
+                                                          .testsModel
+                                                          ?.data?[index]
+                                                          .price ?? AppCubit
+                                                          .get(context)
+                                                          .offersModel
+                                                          ?.data?[index]
+                                                          .discount} ${LocaleKeys
+                                                          .salary.tr()}',
                                                       style: titleStyle
                                                           .copyWith(
-                                                              fontSize: 15),
+                                                          fontSize: 15),
                                                     ),
                                                     horizontalMiniSpace,
-                                                    if (AppCubit.get(
-                                                                context)
-                                                            .offersModel
-                                                            ?.data?[index]
-                                                            .price !=
+                                                    if (AppCubit
+                                                        .get(
+                                                        context)
+                                                        .offersModel
+                                                        ?.data?[index]
+                                                        .price !=
                                                         null)
                                                       Text(
-                                                        '${AppCubit.get(context).offersModel?.data?[index].price} ${LocaleKeys.salary.tr()}',
+                                                        '${AppCubit
+                                                            .get(context)
+                                                            .offersModel
+                                                            ?.data?[index]
+                                                            .price} ${LocaleKeys
+                                                            .salary.tr()}',
                                                         style:
-                                                            subTitleSmallStyle
-                                                                .copyWith(
+                                                        subTitleSmallStyle
+                                                            .copyWith(
                                                           decoration:
-                                                              TextDecoration
-                                                                  .lineThrough,
+                                                          TextDecoration
+                                                              .lineThrough,
                                                         ),
                                                       ),
                                                   ],
@@ -934,13 +939,14 @@ class TestItemCard extends StatelessWidget {
                                     verticalMicroSpace,
                                     Container(
                                       height: 50,
-                                      width: MediaQuery.of(context)
-                                              .size
-                                              .width *
+                                      width: MediaQuery
+                                          .of(context)
+                                          .size
+                                          .width *
                                           0.9,
                                       decoration: BoxDecoration(
                                         borderRadius:
-                                            BorderRadius.circular(radius),
+                                        BorderRadius.circular(radius),
                                         color: greyExtraLightColor,
                                       ),
                                       child: Row(
@@ -950,11 +956,19 @@ class TestItemCard extends StatelessWidget {
                                             LocaleKeys.txtTotal.tr(),
                                             style: titleStyle.copyWith(
                                                 fontWeight:
-                                                    FontWeight.normal),
+                                                FontWeight.normal),
                                           ),
                                           const Spacer(),
                                           Text(
-                                            '${AppCubit.get(context).testsModel?.data?[index].price ?? AppCubit.get(context).offersModel?.data?[index].discount} ${LocaleKeys.salary.tr()}',
+                                            '${AppCubit
+                                                .get(context)
+                                                .testsModel
+                                                ?.data?[index].price ?? AppCubit
+                                                .get(context)
+                                                .offersModel
+                                                ?.data?[index]
+                                                .discount} ${LocaleKeys.salary
+                                                .tr()}',
                                             style: titleStyle.copyWith(
                                                 fontSize: 18),
                                           ),
@@ -965,13 +979,16 @@ class TestItemCard extends StatelessWidget {
                                     SizedBox(
                                       height: 80.0,
                                       width:
-                                          MediaQuery.of(context).size.width,
+                                      MediaQuery
+                                          .of(context)
+                                          .size
+                                          .width,
                                       child: Center(
                                         child: Row(
                                           crossAxisAlignment:
-                                              CrossAxisAlignment.center,
+                                          CrossAxisAlignment.center,
                                           mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                          MainAxisAlignment.center,
                                           children: [
                                             Expanded(
                                               child: MaterialButton(
@@ -993,9 +1010,9 @@ class TestItemCard extends StatelessWidget {
                                                   decoration: BoxDecoration(
                                                     color: mainColor,
                                                     borderRadius:
-                                                        BorderRadius
-                                                            .circular(
-                                                                radius),
+                                                    BorderRadius
+                                                        .circular(
+                                                        radius),
                                                   ),
                                                   height: 50.0,
                                                   width: double.infinity,
@@ -1020,7 +1037,7 @@ class TestItemCard extends StatelessWidget {
                                                 onPress: () {
                                                   AppCubit.get(context)
                                                       .changeBottomScreen(
-                                                          0);
+                                                      0);
                                                   navigateAndFinish(
                                                     context,
                                                     const HomeLayoutScreen(),
@@ -1084,13 +1101,15 @@ class VisitorHoldingPopUp extends StatelessWidget {
           GeneralButton(
               title: LocaleKeys.BtnSignIn.tr(),
               onPress: () {
-                AppCubit.get(context).currentIndex = 0;
+                AppCubit
+                    .get(context)
+                    .currentIndex = 0;
                 Navigator.pushAndRemoveUntil(
                     context,
                     FadeRoute(
                       page: OnBoardingScreen(),
                     ),
-                    (route) => false);
+                        (route) => false);
               }),
           verticalLargeSpace,
         ],
@@ -1153,7 +1172,8 @@ class NotificationsCard extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                       ),
                       Text(
-                        '${notificationsDataModel.date?.date} - ${notificationsDataModel.date?.time}',
+                        '${notificationsDataModel.date
+                            ?.date} - ${notificationsDataModel.date?.time}',
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: subTitleSmallStyle,

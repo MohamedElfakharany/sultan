@@ -2,17 +2,17 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:hq/cubit/cubit.dart';
-import 'package:hq/screens/intro_screens/auth/login_screen.dart';
-import 'package:hq/screens/intro_screens/startup/onboarding_screen.dart';
-import 'package:hq/screens/intro_screens/startup/select_lang_screen.dart';
-import 'package:hq/screens/main_screens/home_layout_screen.dart';
-import 'package:hq/shared/components/general_components.dart';
-import 'package:hq/shared/constants/colors.dart';
-import 'package:hq/shared/constants/general_constants.dart';
-import 'package:hq/shared/network/local/cache_helper.dart';
-import 'package:hq/shared/network/local/const_shared.dart';
-import 'package:hq/tech_lib/tech_home_layout.dart';
+import 'package:sultan/cubit/cubit.dart';
+import 'package:sultan/screens/intro_screens/auth/login_screen.dart';
+import 'package:sultan/screens/intro_screens/startup/onboarding_screen.dart';
+import 'package:sultan/screens/intro_screens/startup/select_lang_screen.dart';
+import 'package:sultan/screens/main_screens/home_layout_screen.dart';
+import 'package:sultan/shared/components/general_components.dart';
+import 'package:sultan/shared/constants/colors.dart';
+import 'package:sultan/shared/constants/general_constants.dart';
+import 'package:sultan/shared/network/local/cache_helper.dart';
+import 'package:sultan/shared/network/local/const_shared.dart';
+import 'package:sultan/tech_lib/tech_home_layout.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);

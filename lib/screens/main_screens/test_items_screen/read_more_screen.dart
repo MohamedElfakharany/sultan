@@ -4,13 +4,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
-import 'package:hq/models/patient_models/test_models/offers_model.dart';
-import 'package:hq/models/patient_models/test_models/tests_model.dart';
-import 'package:hq/shared/components/general_components.dart';
-import 'package:hq/shared/constants/colors.dart';
-import 'package:hq/shared/constants/general_constants.dart';
-import 'package:hq/shared/network/local/const_shared.dart';
-import 'package:hq/translations/locale_keys.g.dart';
+import 'package:sultan/models/patient_models/test_models/offers_model.dart';
+import 'package:sultan/models/patient_models/test_models/tests_model.dart';
+import 'package:sultan/shared/components/general_components.dart';
+import 'package:sultan/shared/constants/colors.dart';
+import 'package:sultan/shared/constants/general_constants.dart';
+import 'package:sultan/shared/network/local/const_shared.dart';
+import 'package:sultan/translations/locale_keys.g.dart';
 
 class ReadMoreScreen extends StatelessWidget {
   ReadMoreScreen({Key? key, this.testsDataModel, this.offersDataModel})

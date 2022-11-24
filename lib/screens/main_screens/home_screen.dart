@@ -7,18 +7,18 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hq/cubit/cubit.dart';
-import 'package:hq/cubit/states.dart';
-import 'package:hq/screens/main_screens/tech_support_screens/create_tech_support_screen.dart';
-import 'package:hq/screens/main_screens/test_items_screen/test_details_screen.dart';
-import 'package:hq/screens/main_screens/test_items_screen/test_items_screen.dart';
-import 'package:hq/screens/main_screens/widgets_components/widgets_components.dart';
-import 'package:hq/shared/components/general_components.dart';
-import 'package:hq/shared/constants/colors.dart';
-import 'package:hq/shared/constants/general_constants.dart';
-import 'package:hq/shared/network/local/cache_helper.dart';
-import 'package:hq/shared/network/local/const_shared.dart';
-import 'package:hq/translations/locale_keys.g.dart';
+import 'package:sultan/cubit/cubit.dart';
+import 'package:sultan/cubit/states.dart';
+import 'package:sultan/screens/main_screens/tech_support_screens/create_tech_support_screen.dart';
+import 'package:sultan/screens/main_screens/test_items_screen/test_details_screen.dart';
+import 'package:sultan/screens/main_screens/test_items_screen/test_items_screen.dart';
+import 'package:sultan/screens/main_screens/widgets_components/widgets_components.dart';
+import 'package:sultan/shared/components/general_components.dart';
+import 'package:sultan/shared/constants/colors.dart';
+import 'package:sultan/shared/constants/general_constants.dart';
+import 'package:sultan/shared/network/local/cache_helper.dart';
+import 'package:sultan/shared/network/local/const_shared.dart';
+import 'package:sultan/translations/locale_keys.g.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -84,7 +84,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   state is! AppGetProfileLoadingState &&
                   cubit.branchNames != null,
               builder: (context) {
-                locationValue = AppCubit.get(context).branchName[extraBranchIndex ?? 0];
+                locationValue =
+                    AppCubit.get(context).branchName[extraBranchIndex ?? 0];
                 return Container(
                   color: greyExtraLightColor,
                   padding: const EdgeInsets.only(
@@ -112,11 +113,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                         state is! AppGetCountriesLoadingState ||
                                         cubit.branchNames != null,
                                 builder: (context) {
-                                  if (kDebugMode) {
-                                    print('ghany 2 ${AppCubit.get(context).branchName}');
-                                    print('ghany 2 $locationValue');
-                                    print('ghany 2 $extraBranchTitle');
-                                  }
                                   return DropdownButtonFormField<String>(
                                     decoration: const InputDecoration(
                                       fillColor: greyExtraLightColor,
@@ -289,15 +285,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       verticalMiniSpace,
                       Container(
-                        // height: 170.0,
                         padding: const EdgeInsets.symmetric(horizontal: 10.0),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(radius),
                           color: whiteColor,
                           border: Border.all(color: greyLightColor),
-                          // image: DecorationImage(
-                          //     image: AssetImage('assets/images/homeImageReserv.png'),
-                          //     fit: BoxFit.contain),
                         ),
                         child: Row(
                           children: [
@@ -323,19 +315,31 @@ class _HomeScreenState extends State<HomeScreen> {
                                       style: titleSmallStyle2,
                                     ),
                                   ),
+                                  verticalMicroSpace,
                                   GeneralButton(
                                     title:
                                         '${LocaleKeys.TxtReservationScreenTitle.tr()} ${LocaleKeys.txtNow.tr()}',
                                     onPress: () {
-                                      Navigator.push(
-                                        context,
-                                        FadeRoute(
-                                          page: const CreateTechSupportScreen(),
-                                        ),
-                                      );
+                                      if (AppCubit.get(context).isVisitor ==
+                                          true) {
+                                        showPopUp(
+                                          context,
+                                          const VisitorHoldingPopUp(),
+                                        );
+                                      } else {
+                                        Navigator.push(
+                                          context,
+                                          FadeRoute(
+                                            page:
+                                                const CreateTechSupportScreen(),
+                                          ),
+                                        );
+                                      }
                                     },
                                     height: 40,
                                   ),
+                                  verticalMicroSpace,
+                                  verticalMicroSpace,
                                 ],
                               ),
                             ),

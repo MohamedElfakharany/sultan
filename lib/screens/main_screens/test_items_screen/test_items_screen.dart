@@ -5,11 +5,11 @@ import 'dart:async';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hq/cubit/cubit.dart';
-import 'package:hq/cubit/states.dart';
-import 'package:hq/screens/main_screens/widgets_components/widgets_components.dart';
-import 'package:hq/shared/components/general_components.dart';
-import 'package:hq/shared/constants/general_constants.dart';
+import 'package:sultan/cubit/cubit.dart';
+import 'package:sultan/cubit/states.dart';
+import 'package:sultan/screens/main_screens/widgets_components/widgets_components.dart';
+import 'package:sultan/shared/components/general_components.dart';
+import 'package:sultan/shared/constants/general_constants.dart';
 
 class TestItemsScreen extends StatefulWidget {
   const TestItemsScreen({Key? key, required this.categoryId}) : super(key: key);

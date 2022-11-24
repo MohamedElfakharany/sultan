@@ -5,18 +5,18 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hq/screens/main_screens/notification_screen.dart';
-import 'package:hq/shared/components/cached_network_image.dart';
-import 'package:hq/shared/components/general_components.dart';
-import 'package:hq/shared/constants/colors.dart';
-import 'package:hq/shared/constants/general_constants.dart';
-import 'package:hq/shared/network/local/const_shared.dart';
-import 'package:hq/tech_lib/tech_cubit/tech_cubit.dart';
-import 'package:hq/tech_lib/tech_cubit/tech_states.dart';
-import 'package:hq/tech_lib/tech_models/reservation_model.dart';
-import 'package:hq/tech_lib/tech_screens/reserved_screens/reservation_details_screen.dart';
-import 'package:hq/tech_lib/tech_screens/tech_map_screen.dart';
-import 'package:hq/translations/locale_keys.g.dart';
+import 'package:sultan/screens/main_screens/notification_screen.dart';
+import 'package:sultan/shared/components/cached_network_image.dart';
+import 'package:sultan/shared/components/general_components.dart';
+import 'package:sultan/shared/constants/colors.dart';
+import 'package:sultan/shared/constants/general_constants.dart';
+import 'package:sultan/shared/network/local/const_shared.dart';
+import 'package:sultan/tech_lib/tech_cubit/tech_cubit.dart';
+import 'package:sultan/tech_lib/tech_cubit/tech_states.dart';
+import 'package:sultan/tech_lib/tech_models/reservation_model.dart';
+import 'package:sultan/tech_lib/tech_screens/reserved_screens/reservation_details_screen.dart';
+import 'package:sultan/tech_lib/tech_screens/tech_map_screen.dart';
+import 'package:sultan/translations/locale_keys.g.dart';
 
 class TechGeneralHomeLayoutAppBar extends StatelessWidget
     with PreferredSizeWidget {

@@ -1,18 +1,16 @@
-import 'dart:async';
-
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hq/cubit/cubit.dart';
-import 'package:hq/cubit/states.dart';
-import 'package:hq/screens/main_screens/profile/region_settings/change_language.dart';
-import 'package:hq/screens/main_screens/reservations/details_screens/reservation_details_upcoming_screen.dart';
-import 'package:hq/screens/main_screens/reserved/widget_components.dart';
-import 'package:hq/shared/components/general_components.dart';
-import 'package:hq/shared/constants/colors.dart';
-import 'package:hq/shared/constants/general_constants.dart';
-import 'package:hq/translations/locale_keys.g.dart';
+import 'package:sultan/cubit/cubit.dart';
+import 'package:sultan/cubit/states.dart';
+import 'package:sultan/screens/main_screens/profile/region_settings/change_language.dart';
+import 'package:sultan/screens/main_screens/reservations/details_screens/reservation_details_upcoming_screen.dart';
+import 'package:sultan/screens/main_screens/reserved/widget_components.dart';
+import 'package:sultan/shared/components/general_components.dart';
+import 'package:sultan/shared/constants/colors.dart';
+import 'package:sultan/shared/constants/general_constants.dart';
+import 'package:sultan/translations/locale_keys.g.dart';
 
 class ReservedScreen extends StatefulWidget {
   const ReservedScreen({Key? key}) : super(key: key);
@@ -25,9 +23,8 @@ class _ReservedScreenState extends State<ReservedScreen> {
   @override
   void initState() {
     super.initState();
-    AppCubit.get(context).getLabReservations().then((v){
+    AppCubit.get(context).getLabReservations();
     AppCubit.get(context).getHomeReservations();
-    });
   }
 
   @override
@@ -40,7 +37,7 @@ class _ReservedScreenState extends State<ReservedScreen> {
           child: Scaffold(
             backgroundColor: greyExtraLightColor,
             body: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              padding: const EdgeInsets.symmetric(horizontal: 15.0),
               child: Column(
                 children: <Widget>[
                   // the tab bar with two items
@@ -54,9 +51,6 @@ class _ReservedScreenState extends State<ReservedScreen> {
                       child: AppBar(
                         backgroundColor: greyExtraLightColor,
                         elevation: 0.0,
-                        // shape: RoundedRectangleBorder(
-                        //   borderRadius: BorderRadius.circular(20),
-                        // ),
                         bottom: TabBar(
                           indicatorColor: mainColor,
                           tabs: [
@@ -74,7 +68,7 @@ class _ReservedScreenState extends State<ReservedScreen> {
                                         boxShadow: [
                                           BoxShadow(
                                             color:
-                                                Colors.grey.withOpacity(0.15),
+                                            Colors.grey.withOpacity(0.15),
                                             spreadRadius: 2,
                                             blurRadius: 2,
                                             offset: const Offset(0, 2),
@@ -84,7 +78,7 @@ class _ReservedScreenState extends State<ReservedScreen> {
                                       ),
                                       child: Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.center,
+                                        MainAxisAlignment.center,
                                         children: [
                                           Image.asset(
                                             'assets/images/atLabIcon.png',
@@ -92,6 +86,7 @@ class _ReservedScreenState extends State<ReservedScreen> {
                                             height: 25,
                                             color: mainColor,
                                           ),
+                                          horizontalMiniSpace,
                                           Text(
                                             LocaleKeys.BtnAtLab.tr(),
                                             textAlign: TextAlign.start,
@@ -122,7 +117,7 @@ class _ReservedScreenState extends State<ReservedScreen> {
                                         boxShadow: [
                                           BoxShadow(
                                             color:
-                                                Colors.grey.withOpacity(0.15),
+                                            Colors.grey.withOpacity(0.15),
                                             spreadRadius: 2,
                                             blurRadius: 2,
                                             offset: const Offset(0, 2),
@@ -132,7 +127,7 @@ class _ReservedScreenState extends State<ReservedScreen> {
                                       ),
                                       child: Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.center,
+                                        MainAxisAlignment.center,
                                         children: [
                                           Image.asset(
                                             'assets/images/atHomeIcon.png',
@@ -140,6 +135,7 @@ class _ReservedScreenState extends State<ReservedScreen> {
                                             height: 25,
                                             color: mainColor,
                                           ),
+                                          horizontalMiniSpace,
                                           Text(
                                             LocaleKeys.BtnAtHome.tr(),
                                             textAlign: TextAlign.start,
@@ -190,7 +186,7 @@ class _ReservedScreenState extends State<ReservedScreen> {
                                             FadeRoute(
                                               page:
                                                   ReservationDetailsUpcomingScreen(
-                                                index: index,
+                                                topIndex: index,
                                                 labReservationsModel:
                                                     AppCubit.get(context)
                                                         .labReservationsModel,
@@ -248,7 +244,7 @@ class _ReservedScreenState extends State<ReservedScreen> {
                                             FadeRoute(
                                               page:
                                                   ReservationDetailsUpcomingScreen(
-                                                index: index,
+                                                topIndex: index,
                                                 homeReservationsModel:
                                                     AppCubit.get(context)
                                                         .homeReservationsModel,

@@ -3,9 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:hq/shared/constants/colors.dart';
-import 'package:hq/tech_lib/tech_cubit/tech_cubit.dart';
-import 'package:hq/tech_lib/tech_cubit/tech_states.dart';
+import 'package:sultan/shared/constants/colors.dart';
+import 'package:sultan/tech_lib/tech_cubit/tech_cubit.dart';
+import 'package:sultan/tech_lib/tech_cubit/tech_states.dart';
 
 class TechMapScreen extends StatefulWidget {
   TechMapScreen({Key? key, this.lat, this.long}) : super(key: key);

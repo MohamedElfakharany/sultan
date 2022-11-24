@@ -6,14 +6,14 @@
 // import 'package:flutter/foundation.dart';
 // import 'package:flutter/material.dart';
 // import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:hq/cubit/cubit.dart';
-// import 'package:hq/cubit/states.dart';
-// import 'package:hq/screens/intro_screens/auth/register/select_country_screen.dart';
-// import 'package:hq/screens/intro_screens/reset_password/reset_password_screen.dart';
-// import 'package:hq/shared/components/general_components.dart';
-// import 'package:hq/shared/constants/colors.dart';
-// import 'package:hq/shared/constants/general_constants.dart';
-// import 'package:hq/translations/locale_keys.g.dart';
+// import 'package:sultan/cubit/cubit.dart';
+// import 'package:sultan/cubit/states.dart';
+// import 'package:sultan/screens/intro_screens/auth/register/select_country_screen.dart';
+// import 'package:sultan/screens/intro_screens/reset_password/reset_password_screen.dart';
+// import 'package:sultan/shared/components/general_components.dart';
+// import 'package:sultan/shared/constants/colors.dart';
+// import 'package:sultan/shared/constants/general_constants.dart';
+// import 'package:sultan/translations/locale_keys.g.dart';
 // import 'package:shared_preferences/shared_preferences.dart';
 //
 // class VerificationScreen extends StatefulWidget {
@@ -314,14 +314,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hq/cubit/cubit.dart';
-import 'package:hq/cubit/states.dart';
-import 'package:hq/screens/intro_screens/auth/register/select_country_screen.dart';
-import 'package:hq/screens/intro_screens/reset_password/reset_password_screen.dart';
-import 'package:hq/shared/components/general_components.dart';
-import 'package:hq/shared/constants/colors.dart';
-import 'package:hq/shared/constants/general_constants.dart';
-import 'package:hq/translations/locale_keys.g.dart';
+import 'package:sultan/cubit/cubit.dart';
+import 'package:sultan/cubit/states.dart';
+import 'package:sultan/screens/intro_screens/auth/register/select_country_screen.dart';
+import 'package:sultan/screens/intro_screens/reset_password/reset_password_screen.dart';
+import 'package:sultan/shared/components/general_components.dart';
+import 'package:sultan/shared/constants/colors.dart';
+import 'package:sultan/shared/constants/general_constants.dart';
+import 'package:sultan/translations/locale_keys.g.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class VerificationScreen extends StatefulWidget {
@@ -338,7 +338,6 @@ class VerificationScreen extends StatefulWidget {
   String? resetToken;
   String phoneCode = "";
   String mobileNumber = "";
-
   @override
   State<VerificationScreen> createState() => _VerificationScreenState();
 }
@@ -347,11 +346,44 @@ class _VerificationScreenState extends State<VerificationScreen> {
   final codeController = TextEditingController();
   var formKey = GlobalKey<FormState>();
 
+  String? verificationId = "";
+  FirebaseAuth auth = FirebaseAuth.instance;
+
+  Future fetchOtp(
+      {required String number, required String phoneCode}) async {
+    if (kDebugMode) {
+      print('verificationId Sign In before : $verificationId');
+    }
+    await auth.verifyPhoneNumber(
+      phoneNumber: '+$phoneCode$number',
+      verificationCompleted: (PhoneAuthCredential credential) async {
+        await auth.signInWithCredential(credential).then((v) => {
+          print(v.credential?.asMap())
+        });
+      },
+      verificationFailed: (FirebaseAuthException e) {
+        if (e.code == 'invalid-phone-number') {
+          if (kDebugMode) {
+            print('The provided phone number is not valid.');
+          }
+        }
+      },
+      codeSent: (String verificationIdC, int? resendToken) async {
+        verificationId = verificationIdC;
+      },
+      codeAutoRetrievalTimeout: (String verificationId) {},
+    );
+
+    if (kDebugMode) {
+      print('verificationId Sign In after  : $verificationId');
+    }
+  }
+
   bool isFirst = true;
 
   Future<void> verify() async {
     PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.credential(
-      verificationId: AppCubit.get(context).verificationId.toString(),
+      verificationId: verificationId.toString(),
       smsCode: codeController.text,
     );
     signInWithPhoneAuthCredential(phoneAuthCredential);
@@ -360,9 +392,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
   void signInWithPhoneAuthCredential(
       PhoneAuthCredential phoneAuthCredential) async {
     try {
-      final authCredential = await AppCubit.get(context)
-          .auth
-          .signInWithCredential(phoneAuthCredential);
+      final authCredential = await auth.signInWithCredential(phoneAuthCredential);
       if (authCredential.user != null) {
         if (widget.isRegister == true && widget.isChangeMobile == false) {
           await AppCubit.get(context).verify().then((v) {
@@ -382,18 +412,26 @@ class _VerificationScreenState extends State<VerificationScreen> {
         } else if (widget.isRegister == false &&
             widget.isChangeMobile == true) {
           AppCubit.get(context).changeNumber(phone: widget.mobileNumber, phoneCode: widget.phoneCode);
+        }else {
+          await AppCubit.get(context).verify().then((v) {
+            AppCubit.get(context).getCountry().then((v) {
+              Navigator.push(
+                  context, FadeRoute(page: const SelectCountryScreen()));
+            });
+          });
         }
       }
     } on FirebaseAuthException catch (e) {
       showDialog(
         context: context,
         builder: (context) {
-          return const Center(child: CircularProgressIndicator.adaptive());
-          //   AlertDialog(
-          //   content: Text(
-          //     e.code,
-          //   ),
-          // );
+          return
+            // const Center(child: CircularProgressIndicator.adaptive());
+            AlertDialog(
+            content: Text(
+              e.code,
+            ),
+          );
         },
       );
       if (kDebugMode) {
@@ -411,7 +449,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
     super.initState();
     if (isFirst) {
       isFirst = false;
-      AppCubit.get(context).fetchOtp(number: widget.mobileNumber, phoneCode: widget.phoneCode);
+      fetchOtp(number: widget.mobileNumber, phoneCode: widget.phoneCode);
     }
   }
 
@@ -420,7 +458,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
     if (kDebugMode) {
       print(widget.mobileNumber.toString());
       print(
-          'AppCubit.get(context).verificationId : ${AppCubit.get(context).verificationId}');
+          'AppCubit.get(context).verificationId : $verificationId');
     }
     return BlocConsumer<AppCubit, AppStates>(
       listener: (context, state) async {
@@ -545,21 +583,23 @@ class _VerificationScreenState extends State<VerificationScreen> {
                   verticalMediumSpace,
                   ConditionalBuilder(
                     condition: state is! AppGetVerifyLoadingState ||
-                        state is! AppCreateTokenLoadingState &&
-                            AppCubit.get(context).verificationId != null,
-                    builder: (context) => GeneralButton(
-                      title: LocaleKeys.BtnVerify.tr(),
-                      onPress: () {
-                        if (formKey.currentState!.validate()) {
-                          AppCubit.get(context).verify();
-                          AppCubit.get(context)
-                              .createToken(
-                              mobile: widget.mobileNumber.toString(), phoneCode: widget.phoneCode)
-                              .then((v) {
-                            verify();
-                          });
-                        }
-                      },
+                        state is! AppCreateTokenLoadingState && verificationId != null,
+                    builder: (context) => Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                      child: GeneralButton(
+                        title: LocaleKeys.BtnVerify.tr(),
+                        onPress: () {
+                          if (formKey.currentState!.validate()) {
+                            AppCubit.get(context).verify();
+                            AppCubit.get(context)
+                                .createToken(
+                                mobile: widget.mobileNumber.toString(), phoneCode: widget.phoneCode)
+                                .then((v) {
+                              verify();
+                            });
+                          }
+                        },
+                      ),
                     ),
                     fallback: (context) => const Center(
                       child: CircularProgressIndicator.adaptive(),
@@ -579,7 +619,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                           AppCubit.get(context)
                               .createToken(mobile: widget.mobileNumber.toString(), phoneCode: widget.phoneCode)
                               .then((v) {
-                            AppCubit.get(context).fetchOtp(number: widget.mobileNumber, phoneCode: widget.phoneCode);
+                            fetchOtp(number: widget.mobileNumber, phoneCode: widget.phoneCode);
                           });
                         },
                         child: Text(

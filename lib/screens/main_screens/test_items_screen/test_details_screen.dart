@@ -7,21 +7,21 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:hq/cubit/cubit.dart';
-import 'package:hq/cubit/states.dart';
-import 'package:hq/models/patient_models/test_models/offers_model.dart';
-import 'package:hq/models/patient_models/test_models/tests_model.dart';
-import 'package:hq/screens/main_screens/card_screen.dart';
-import 'package:hq/screens/main_screens/home_layout_screen.dart';
-import 'package:hq/screens/main_screens/reservations/details_screens/home_appointments/home_appointments_screen.dart';
-import 'package:hq/screens/main_screens/reservations/details_screens/lab_appointments/lab_appointments_screen.dart';
-import 'package:hq/screens/main_screens/test_items_screen/read_more_screen.dart';
-import 'package:hq/screens/main_screens/widgets_components/widgets_components.dart';
-import 'package:hq/shared/components/general_components.dart';
-import 'package:hq/shared/constants/colors.dart';
-import 'package:hq/shared/constants/general_constants.dart';
-import 'package:hq/shared/network/local/const_shared.dart';
-import 'package:hq/translations/locale_keys.g.dart';
+import 'package:sultan/cubit/cubit.dart';
+import 'package:sultan/cubit/states.dart';
+import 'package:sultan/models/patient_models/test_models/offers_model.dart';
+import 'package:sultan/models/patient_models/test_models/tests_model.dart';
+import 'package:sultan/screens/main_screens/card_screen.dart';
+import 'package:sultan/screens/main_screens/home_layout_screen.dart';
+import 'package:sultan/screens/main_screens/reservations/details_screens/home_appointments/home_appointments_screen.dart';
+import 'package:sultan/screens/main_screens/reservations/details_screens/lab_appointments/lab_appointments_screen.dart';
+import 'package:sultan/screens/main_screens/test_items_screen/read_more_screen.dart';
+import 'package:sultan/screens/main_screens/widgets_components/widgets_components.dart';
+import 'package:sultan/shared/components/general_components.dart';
+import 'package:sultan/shared/constants/colors.dart';
+import 'package:sultan/shared/constants/general_constants.dart';
+import 'package:sultan/shared/network/local/const_shared.dart';
+import 'package:sultan/translations/locale_keys.g.dart';
 
 class TestDetailsScreen extends StatelessWidget {
   TestDetailsScreen({Key? key, this.offersDataModel, this.testsDataModel})
@@ -41,7 +41,7 @@ class TestDetailsScreen extends StatelessWidget {
               Navigator.push(
                 context,
                 FadeRoute(
-                  page: const CartScreen(),
+                  page: CartScreen(),
                 ),
               );
             }

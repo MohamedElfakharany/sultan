@@ -3,19 +3,19 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hq/cubit/cubit.dart';
-import 'package:hq/cubit/states.dart';
-import 'package:hq/screens/intro_screens/auth/register/select_country_screen.dart';
-import 'package:hq/screens/intro_screens/auth/register/sign_up_screen.dart';
-import 'package:hq/screens/intro_screens/reset_password/forget_password_screen.dart';
-import 'package:hq/screens/intro_screens/reset_password/verification_screen.dart';
-import 'package:hq/screens/main_screens/home_layout_screen.dart';
-import 'package:hq/shared/components/general_components.dart';
-import 'package:hq/shared/constants/colors.dart';
-import 'package:hq/shared/constants/general_constants.dart';
-import 'package:hq/shared/network/local/const_shared.dart';
-import 'package:hq/tech_lib/tech_home_layout.dart';
-import 'package:hq/translations/locale_keys.g.dart';
+import 'package:sultan/cubit/cubit.dart';
+import 'package:sultan/cubit/states.dart';
+import 'package:sultan/screens/intro_screens/auth/register/select_country_screen.dart';
+import 'package:sultan/screens/intro_screens/auth/register/sign_up_screen.dart';
+import 'package:sultan/screens/intro_screens/reset_password/forget_password_screen.dart';
+import 'package:sultan/screens/intro_screens/reset_password/verification_screen.dart';
+import 'package:sultan/screens/main_screens/home_layout_screen.dart';
+import 'package:sultan/shared/components/general_components.dart';
+import 'package:sultan/shared/constants/colors.dart';
+import 'package:sultan/shared/constants/general_constants.dart';
+import 'package:sultan/shared/network/local/const_shared.dart';
+import 'package:sultan/tech_lib/tech_home_layout.dart';
+import 'package:sultan/translations/locale_keys.g.dart';
 import 'package:keyboard_actions/keyboard_actions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -260,19 +260,22 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   ConditionalBuilder(
                     condition: state is! AppLoginLoadingState,
-                    builder: (context) => GeneralButton(
-                      title: LocaleKeys.BtnSignIn.tr(),
-                      onPress: () {
-                        if (formKey.currentState!.validate()) {
-                          cubit.isVisitor = false;
-                          cubit.login(
-                            mobile: mobileController.text,
-                            password: passwordController.text,
-                            phoneCode: nationalCodeController.text,
-                            deviceTokenLogin: deviceToken!,
-                          );
-                        }
-                      },
+                    builder: (context) => Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                      child: GeneralButton(
+                        title: LocaleKeys.BtnSignIn.tr(),
+                        onPress: () {
+                          if (formKey.currentState!.validate()) {
+                            cubit.isVisitor = false;
+                            cubit.login(
+                              mobile: mobileController.text,
+                              password: passwordController.text,
+                              phoneCode: nationalCodeController.text,
+                              deviceTokenLogin: deviceToken!,
+                            );
+                          }
+                        },
+                      ),
                     ),
                     fallback: (context) => const Center(
                         child: CircularProgressIndicator.adaptive()),

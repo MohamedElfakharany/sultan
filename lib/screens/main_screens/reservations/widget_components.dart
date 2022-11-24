@@ -3,14 +3,15 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hq/cubit/cubit.dart';
-import 'package:hq/cubit/states.dart';
-import 'package:hq/models/patient_models/home_appointments_model/home_appointments_model.dart';
-import 'package:hq/models/patient_models/lab_appointments_model/lab_appointment_model.dart';
-import 'package:hq/shared/constants/colors.dart';
-import 'package:hq/shared/constants/general_constants.dart';
-import 'package:hq/shared/network/local/const_shared.dart';
-import 'package:hq/translations/locale_keys.g.dart';
+import 'package:sultan/cubit/cubit.dart';
+import 'package:sultan/cubit/states.dart';
+import 'package:sultan/models/patient_models/home_appointments_model/home_appointments_model.dart';
+import 'package:sultan/models/patient_models/lab_appointments_model/lab_appointment_model.dart';
+import 'package:sultan/shared/components/cached_network_image.dart';
+import 'package:sultan/shared/constants/colors.dart';
+import 'package:sultan/shared/constants/general_constants.dart';
+import 'package:sultan/shared/network/local/const_shared.dart';
+import 'package:sultan/translations/locale_keys.g.dart';
 
 class LabAppointmentsCard extends StatelessWidget {
   LabAppointmentsCard({Key? key, this.labAppointmentsDataModel})
@@ -141,3 +142,66 @@ class HomeAppointmentsCard extends StatelessWidget {
   }
 }
 
+class ReservationInCartCard extends StatelessWidget {
+  ReservationInCartCard({Key? key, this.image, this.price, this.title}) : super(key: key);
+  String? image;
+  int? price;
+  String? title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 110.0,
+      width: 110.0,
+      decoration: BoxDecoration(
+        color: whiteColor,
+        borderRadius: BorderRadius.circular(radius),
+        border: Border.all(
+          width: 1,
+          color: greyLightColor,
+        ),
+      ),
+      alignment: AlignmentDirectional.center,
+      padding: const EdgeInsets.symmetric(
+          vertical: 0, horizontal: 4),
+      child: Stack(
+        alignment: AlignmentDirectional.topEnd,
+        children: [
+          Row(
+            children: [
+              horizontalMicroSpace,
+              CachedNetworkImageNormal(
+                imageUrl: image ?? '',
+                width: 80,
+                height: 80,
+              ),
+              horizontalSmallSpace,
+              Expanded(
+                child: Column(
+                  crossAxisAlignment:
+                  CrossAxisAlignment.start,
+                  mainAxisAlignment:
+                  MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      title ?? '',
+                      style: titleSmallStyle,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Text(
+                      '$price ${LocaleKeys.salary.tr()}',
+                      style: titleSmallStyle2,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}

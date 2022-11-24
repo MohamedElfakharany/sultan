@@ -1,25 +1,21 @@
 class HomeReservationsModel {
-  bool? status;
+  dynamic status;
   dynamic message;
   List<HomeReservationsDataModel>? data;
   Extra? extra;
   Errors? errors;
 
-  HomeReservationsModel(
-      {this.status, this.message, this.data, this.extra, this.errors});
+  HomeReservationsModel({this.status, this.message, this.data, this.extra, this.errors});
 
   HomeReservationsModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
     if (json['data'] != null) {
       data = <HomeReservationsDataModel>[];
-      json['data'].forEach((v) {
-        data!.add(HomeReservationsDataModel.fromJson(v));
-      });
+      json['data'].forEach((v) { data!.add(HomeReservationsDataModel.fromJson(v)); });
     }
     extra = json['extra'] != null ? Extra.fromJson(json['extra']) : null;
-    errors =
-        json['errors'] != null ? Errors.fromJson(json['errors']) : null;
+    errors = json['errors'] != null ? Errors.fromJson(json['errors']) : null;
   }
 }
 
@@ -27,10 +23,10 @@ class HomeReservationsDataModel {
   dynamic id;
   dynamic date;
   dynamic time;
-  List<Null>? family;
+  List<void>? family;
   Address? address;
-  Branch? branch;
-  List<Null>? coupon;
+  List<void>? branch;
+  List<void>? coupon;
   dynamic price;
   dynamic tax;
   dynamic discount;
@@ -41,46 +37,25 @@ class HomeReservationsDataModel {
   dynamic rateMessage;
   CreatedAt? createdAt;
   List<Tests>? tests;
-  List<Offers>? offers;
-  List<Null>? technical;
+  List<Tests>? offers;
+  List<void>? technical;
 
-  HomeReservationsDataModel(
-      {this.id,
-      this.date,
-      this.time,
-      this.family,
-      this.address,
-      this.branch,
-      this.coupon,
-      this.price,
-      this.tax,
-      this.discount,
-      this.total,
-      this.status,
-      this.statusEn,
-      this.rate,
-      this.rateMessage,
-      this.createdAt,
-      this.tests,
-      this.offers,
-      this.technical});
+  HomeReservationsDataModel({this.id, this.date, this.time, this.family, this.address, this.branch, this.coupon, this.price, this.tax, this.discount, this.total, this.status, this.statusEn, this.rate, this.rateMessage, this.createdAt, this.tests, this.offers, this.technical});
 
   HomeReservationsDataModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     date = json['date'];
     time = json['time'];
-    // if (json['family'] != null) {
-    //   family = <Null>[];
-    //   json['family'].forEach((v) { family!.add(new Null.fromJson(v)); });
-    // }
-    address =
-        json['address'] != null ? Address.fromJson(json['address']) : null;
-    branch =
-        json['branch'] != null ? Branch.fromJson(json['branch']) : null;
-    // if (json['coupon'] != null) {
-    //   coupon = <Null>[];
-    //   json['coupon'].forEach((v) { coupon!.add(new Null.fromJson(v)); });
-    // }
+    if (json['family'] != null) {
+      family = <Null>[];
+    }
+    address = json['address'] != null ? Address.fromJson(json['address']) : null;
+    if (json['branch'] != null) {
+      branch = <Null>[];
+    }
+    if (json['coupon'] != null) {
+      coupon = <Null>[];
+    }
     price = json['price'];
     tax = json['tax'];
     discount = json['discount'];
@@ -89,25 +64,18 @@ class HomeReservationsDataModel {
     statusEn = json['statusEn'];
     rate = json['rate'];
     rateMessage = json['rateMessage'];
-    createdAt = json['created_at'] != null
-        ? CreatedAt.fromJson(json['created_at'])
-        : null;
+    createdAt = json['created_at'] != null ? CreatedAt.fromJson(json['created_at']) : null;
     if (json['tests'] != null) {
       tests = <Tests>[];
-      json['tests'].forEach((v) {
-        tests!.add(Tests.fromJson(v));
-      });
+      json['tests'].forEach((v) { tests!.add(Tests.fromJson(v)); });
     }
     if (json['offers'] != null) {
-      offers = <Offers>[];
-      json['offers'].forEach((v) {
-        offers!.add(Offers.fromJson(v));
-      });
+      offers = <Tests>[];
+      json['tests'].forEach((v) { tests!.add(Tests.fromJson(v)); });
     }
-    // if (json['technical'] != null) {
-    //   technical = <Null>[];
-    //   json['technical'].forEach((v) { technical!.add(new Null.fromJson(v)); });
-    // }
+    if (json['technical'] != null) {
+      technical = <Null>[];
+    }
   }
 }
 
@@ -120,14 +88,7 @@ class Address {
   dynamic floorNumber;
   dynamic buildingNumber;
 
-  Address(
-      {this.id,
-      this.latitude,
-      this.longitude,
-      this.address,
-      this.specialMark,
-      this.floorNumber,
-      this.buildingNumber});
+  Address({this.id, this.latitude, this.longitude, this.address, this.specialMark, this.floorNumber, this.buildingNumber});
 
   Address.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -137,18 +98,6 @@ class Address {
     specialMark = json['special_mark'];
     floorNumber = json['floor_number'];
     buildingNumber = json['building_number'];
-  }
-}
-
-class Branch {
-  dynamic id;
-  dynamic title;
-
-  Branch({this.id, this.title});
-
-  Branch.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    title = json['title'];
   }
 }
 
@@ -182,22 +131,6 @@ class Tests {
   }
 }
 
-class Offers {
-  dynamic id;
-  dynamic title;
-  dynamic price;
-  dynamic image;
-
-  Offers({this.id, this.title, this.price, this.image});
-
-  Offers.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    title = json['title'];
-    price = json['price'];
-    image = json['image'];
-  }
-}
-
 class Extra {
   dynamic phone;
   Pagination? pagination;
@@ -206,9 +139,7 @@ class Extra {
 
   Extra.fromJson(Map<String, dynamic> json) {
     phone = json['phone'];
-    pagination = json['pagination'] != null
-        ? Pagination.fromJson(json['pagination'])
-        : null;
+    pagination = json['pagination'] != null ? Pagination.fromJson(json['pagination']) : null;
   }
 }
 
@@ -219,8 +150,7 @@ class Pagination {
   dynamic currentPage;
   dynamic lastPage;
 
-  Pagination(
-      {this.total, this.count, this.perPage, this.currentPage, this.lastPage});
+  Pagination({this.total, this.count, this.perPage, this.currentPage, this.lastPage});
 
   Pagination.fromJson(Map<String, dynamic> json) {
     total = json['total'];
@@ -233,6 +163,5 @@ class Pagination {
 
 class Errors {
   Errors();
-
-  Errors.fromJson(Map<String, dynamic> json) {}
+Errors.fromJson(Map<String, dynamic> json);
 }

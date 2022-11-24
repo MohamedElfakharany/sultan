@@ -1,8 +1,8 @@
-import 'package:hq/models/patient_models/auth_models/verify_model.dart';
-import 'package:hq/models/patient_models/auth_models/user_resource_model.dart';
-import 'package:hq/tech_lib/tech_models/requests_model.dart';
-import 'package:hq/tech_lib/tech_models/reservation_model.dart';
-import 'package:hq/tech_lib/tech_models/tech_tech_support_model.dart';
+import 'package:sultan/models/patient_models/auth_models/verify_model.dart';
+import 'package:sultan/models/patient_models/auth_models/user_resource_model.dart';
+import 'package:sultan/tech_lib/tech_models/requests_model.dart';
+import 'package:sultan/tech_lib/tech_models/reservation_model.dart';
+import 'package:sultan/tech_lib/tech_models/tech_tech_support_model.dart';
 
 abstract class AppTechStates {}
 

@@ -33,6 +33,7 @@ abstract class  LocaleKeys {
   static const BtnLater = 'BtnLater';
   static const BtnAddFile = 'BtnAddFile';
   static const txtShowMap = 'txtShowMap';
+  static const txtAnswer = 'txtAnswer';
   static const txtNewAddress = 'txtNewAddress';
   static const txtNewMember = 'txtNewMember';
   static const txtRelationship = 'txtRelationship';

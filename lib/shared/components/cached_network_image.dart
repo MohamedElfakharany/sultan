@@ -1,7 +1,7 @@
 // ignore_for_file: file_names
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:hq/shared/constants/colors.dart';
+import 'package:sultan/shared/constants/colors.dart';
 
 class CachedNetworkImageCircular extends StatelessWidget {
   final String imageUrl;

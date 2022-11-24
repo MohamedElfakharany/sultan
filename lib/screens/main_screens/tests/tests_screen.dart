@@ -3,16 +3,16 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hq/cubit/cubit.dart';
-import 'package:hq/cubit/states.dart';
-import 'package:hq/screens/main_screens/test_items_screen/test_details_screen.dart';
-import 'package:hq/screens/main_screens/test_items_screen/test_items_screen.dart';
-import 'package:hq/screens/main_screens/widgets_components/widgets_components.dart';
-import 'package:hq/shared/components/general_components.dart';
-import 'package:hq/shared/constants/colors.dart';
-import 'package:hq/shared/constants/general_constants.dart';
-import 'package:hq/shared/network/local/const_shared.dart';
-import 'package:hq/translations/locale_keys.g.dart';
+import 'package:sultan/cubit/cubit.dart';
+import 'package:sultan/cubit/states.dart';
+import 'package:sultan/screens/main_screens/test_items_screen/test_details_screen.dart';
+import 'package:sultan/screens/main_screens/test_items_screen/test_items_screen.dart';
+import 'package:sultan/screens/main_screens/widgets_components/widgets_components.dart';
+import 'package:sultan/shared/components/general_components.dart';
+import 'package:sultan/shared/constants/colors.dart';
+import 'package:sultan/shared/constants/general_constants.dart';
+import 'package:sultan/shared/network/local/const_shared.dart';
+import 'package:sultan/translations/locale_keys.g.dart';
 
 class TestsScreen extends StatefulWidget {
   const TestsScreen({Key? key}) : super(key: key);
@@ -76,7 +76,7 @@ class _TestsScreenState extends State<TestsScreen> {
                                               Colors.grey.withOpacity(0.15),
                                           spreadRadius: 2,
                                           blurRadius: 2,
-                                          offset: const Offset(0, 2),
+                                          offset: Offset(0, 2),
                                         ),
                                       ],
                                       color: whiteColor,
@@ -127,7 +127,7 @@ class _TestsScreenState extends State<TestsScreen> {
                                               Colors.grey.withOpacity(0.15),
                                           spreadRadius: 2,
                                           blurRadius: 2,
-                                          offset: const Offset(0, 2),
+                                          offset: Offset(0, 2),
                                         ),
                                       ],
                                       color: whiteColor,

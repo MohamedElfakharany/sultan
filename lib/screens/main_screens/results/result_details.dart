@@ -8,16 +8,16 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hq/cubit/cubit.dart';
-import 'package:hq/cubit/states.dart';
-import 'package:hq/models/patient_models/home_appointments_model/home_result_model.dart';
-import 'package:hq/models/patient_models/lab_appointments_model/lab_result_model.dart';
-import 'package:hq/screens/main_screens/results/widget_components.dart';
-import 'package:hq/shared/components/general_components.dart';
-import 'package:hq/shared/constants/colors.dart';
-import 'package:hq/shared/constants/general_constants.dart';
-import 'package:hq/shared/network/local/const_shared.dart';
-import 'package:hq/translations/locale_keys.g.dart';
+import 'package:sultan/cubit/cubit.dart';
+import 'package:sultan/cubit/states.dart';
+import 'package:sultan/models/patient_models/home_appointments_model/home_result_model.dart';
+import 'package:sultan/models/patient_models/lab_appointments_model/lab_result_model.dart';
+import 'package:sultan/screens/main_screens/results/widget_components.dart';
+import 'package:sultan/shared/components/general_components.dart';
+import 'package:sultan/shared/constants/colors.dart';
+import 'package:sultan/shared/constants/general_constants.dart';
+import 'package:sultan/shared/network/local/const_shared.dart';
+import 'package:sultan/translations/locale_keys.g.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -47,7 +47,7 @@ class _ResultDetailsScreenState extends State<ResultDetailsScreen> {
     return BlocConsumer<AppCubit, AppStates>(
       listener: (context, state) {},
       builder: (context, state) {
-        var result = AppCubit.get(context).labResultsModel?.data?[widget.index];
+        var result = widget.homeResultsDataModel;
         return Scaffold(
           backgroundColor: greyExtraLightColor,
           appBar: GeneralAppBar(
@@ -172,7 +172,8 @@ class _ResultDetailsScreenState extends State<ResultDetailsScreen> {
                               ),
                             )
                           : ResultsDetailsCart(
-                              labResultsDataFileModel: result!.results![index],
+                              homeResultsDataFileModel: widget.homeResultsDataModel?.results?[index],
+                              labResultsDataFileModel: widget.labResultsDataModel?.results?[index],
                             ),
                     ),
                     separatorBuilder: (context, index) => verticalMiniSpace,

@@ -10,12 +10,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart' as geolocator;
 import 'package:geocoding/geocoding.dart' as geo;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:hq/cubit/cubit.dart';
-import 'package:hq/cubit/states.dart';
-import 'package:hq/shared/components/general_components.dart';
-import 'package:hq/shared/constants/colors.dart';
-import 'package:hq/shared/constants/general_constants.dart';
-import 'package:hq/translations/locale_keys.g.dart';
+import 'package:sultan/cubit/cubit.dart';
+import 'package:sultan/cubit/states.dart';
+import 'package:sultan/shared/components/general_components.dart';
+import 'package:sultan/shared/constants/colors.dart';
+import 'package:sultan/shared/constants/general_constants.dart';
+import 'package:sultan/translations/locale_keys.g.dart';
 import 'package:keyboard_actions/keyboard_actions.dart';
 import 'package:location/location.dart';
 
@@ -34,31 +34,33 @@ class MapScreen extends StatefulWidget {
 class _MapScreenState extends State<MapScreen> {
   var formKey = GlobalKey<FormState>();
   final focusNodes = Iterable<int>.generate(4).map((_) => FocusNode()).toList();
-  GoogleMapController? controller;
+  GoogleMapController? topController;
   double mLatitude = 0;
   double mLongitude = 0;
   late bool isInit;
 
   geolocator.Position? position;
 
+  Future<void> getLocation() async {
+    position = await geolocator.Geolocator.getCurrentPosition(
+        desiredAccuracy: geolocator.LocationAccuracy.high);
+  }
+
   @override
   void initState() {
-    mLatitude = widget.position?.latitude ?? 0;
-    mLongitude = widget.position?.longitude ?? 0;
-
-    if (Platform.isAndroid) {
-      getAddressBasedOnLocation(lat: mLatitude, long: mLongitude);
-    } else {
-      Timer(const Duration(seconds: 0), () {
-        setState(() async {
-          position = await geolocator.Geolocator.getCurrentPosition(
-                  desiredAccuracy: geolocator.LocationAccuracy.high)
-              .then((v) {
-            getAddressBasedOnLocation(
-                lat: position?.latitude, long: position?.longitude);
-          });
+    if (Platform.isIOS) {
+      getLocation().then((v) {
+        setState(() {
+          getAddressBasedOnLocation(
+              lat: position?.latitude, long: position?.longitude);
+          mLatitude = position!.latitude;
+          mLongitude = position!.longitude;
         });
       });
+    } else {
+      mLatitude = widget.position!.latitude;
+      mLongitude = widget.position!.longitude;
+      getAddressBasedOnLocation(lat: mLatitude, long: mLongitude);
     }
 
     super.initState();
@@ -121,8 +123,8 @@ class _MapScreenState extends State<MapScreen> {
                     target: LatLng(mLatitude, mLongitude),
                     zoom: 17.0,
                   ),
-                  onMapCreated: (controller) {
-                    // controller = controller;
+                  onTap: (value){
+                    getAddressBasedOnLocation(lat: value.latitude,long: value.longitude);
                   },
                   markers: markers,
                 ),
@@ -234,11 +236,10 @@ class _MapScreenState extends State<MapScreen> {
       currentLocation.onLocationChanged.listen((LocationData loc) {
         lat = loc.latitude!;
         long = loc.longitude!;
-        controller?.animateCamera(
+        topController?.animateCamera(
           CameraUpdate.newCameraPosition(
             CameraPosition(
-              target: LatLng(loc.latitude ?? lat ?? mLatitude,
-                  loc.longitude ?? long ?? mLongitude),
+              target: LatLng(loc.latitude!, loc.longitude!),
               zoom: 17.0,
             ),
           ),
@@ -250,19 +251,19 @@ class _MapScreenState extends State<MapScreen> {
                   loc.longitude ?? long ?? mLongitude)),
         );
       });
+      mLatitude = lat!;
+      mLongitude = long!;
     }
   }
 
   Future<void> getAddressBasedOnLocation({double? lat, double? long}) async {
-    lat = mLatitude;
-    long = mLongitude;
     await _getLocation(lat: lat, long: long).then((value) async {
       var address = await geo.placemarkFromCoordinates(lat!, long!);
       userAddress = address.first;
       if (kDebugMode) {
         print('from getAddressBasedOnLocation userAddress : $userAddress');
       }
-      controller?.animateCamera(
+      topController?.animateCamera(
         CameraUpdate.newCameraPosition(
           CameraPosition(
             target: LatLng(lat, long),

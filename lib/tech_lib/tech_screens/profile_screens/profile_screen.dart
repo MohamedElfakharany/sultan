@@ -3,17 +3,17 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hq/screens/main_screens/notification_screen.dart';
-import 'package:hq/shared/components/general_components.dart';
-import 'package:hq/shared/constants/colors.dart';
-import 'package:hq/shared/constants/general_constants.dart';
-import 'package:hq/shared/network/local/const_shared.dart';
-import 'package:hq/tech_lib/tech_cubit/tech_cubit.dart';
-import 'package:hq/tech_lib/tech_cubit/tech_states.dart';
-import 'package:hq/tech_lib/tech_home_layout.dart';
-import 'package:hq/tech_lib/tech_screens/profile_screens/edit_tech_profile_screen.dart';
-import 'package:hq/tech_lib/tech_screens/profile_screens/tecg_change_password.dart';
-import 'package:hq/translations/locale_keys.g.dart';
+import 'package:sultan/screens/main_screens/notification_screen.dart';
+import 'package:sultan/shared/components/general_components.dart';
+import 'package:sultan/shared/constants/colors.dart';
+import 'package:sultan/shared/constants/general_constants.dart';
+import 'package:sultan/shared/network/local/const_shared.dart';
+import 'package:sultan/tech_lib/tech_cubit/tech_cubit.dart';
+import 'package:sultan/tech_lib/tech_cubit/tech_states.dart';
+import 'package:sultan/tech_lib/tech_home_layout.dart';
+import 'package:sultan/tech_lib/tech_screens/profile_screens/edit_tech_profile_screen.dart';
+import 'package:sultan/tech_lib/tech_screens/profile_screens/tecg_change_password.dart';
+import 'package:sultan/translations/locale_keys.g.dart';
 
 class TechProfileScreen extends StatefulWidget {
   const TechProfileScreen({Key? key}) : super(key: key);

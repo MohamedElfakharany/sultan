@@ -2,13 +2,13 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hq/shared/components/general_components.dart';
-import 'package:hq/shared/constants/colors.dart';
-import 'package:hq/shared/constants/general_constants.dart';
-import 'package:hq/tech_lib/tech_components.dart';
-import 'package:hq/tech_lib/tech_cubit/tech_cubit.dart';
-import 'package:hq/tech_lib/tech_cubit/tech_states.dart';
-import 'package:hq/translations/locale_keys.g.dart';
+import 'package:sultan/shared/components/general_components.dart';
+import 'package:sultan/shared/constants/colors.dart';
+import 'package:sultan/shared/constants/general_constants.dart';
+import 'package:sultan/tech_lib/tech_components.dart';
+import 'package:sultan/tech_lib/tech_cubit/tech_cubit.dart';
+import 'package:sultan/tech_lib/tech_cubit/tech_states.dart';
+import 'package:sultan/translations/locale_keys.g.dart';
 
 class TechRequestsScreen extends StatelessWidget {
   const TechRequestsScreen({Key? key}) : super(key: key);
@@ -59,7 +59,7 @@ class TechRequestsScreen extends StatelessWidget {
                                                 Colors.grey.withOpacity(0.15),
                                             spreadRadius: 2,
                                             blurRadius: 2,
-                                            offset: const Offset(0, 2),
+                                            offset: Offset(0, 2),
                                           ),
                                         ],
                                         color: whiteColor,
@@ -108,7 +108,7 @@ class TechRequestsScreen extends StatelessWidget {
                                                 Colors.grey.withOpacity(0.15),
                                             spreadRadius: 2,
                                             blurRadius: 2,
-                                            offset: const Offset(0, 2),
+                                            offset: Offset(0, 2),
                                           ),
                                         ],
                                         color: whiteColor,

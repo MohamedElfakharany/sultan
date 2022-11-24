@@ -6,26 +6,20 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_swipe_action_cell/core/cell.dart';
-import 'package:hq/cubit/cubit.dart';
-import 'package:hq/cubit/states.dart';
-import 'package:hq/screens/main_screens/home_layout_screen.dart';
-import 'package:hq/screens/main_screens/reservations/details_screens/home_appointments/home_appointments_screen.dart';
-import 'package:hq/screens/main_screens/reservations/details_screens/lab_appointments/lab_appointments_screen.dart';
-import 'package:hq/shared/components/cached_network_image.dart';
-import 'package:hq/shared/components/general_components.dart';
-import 'package:hq/shared/constants/colors.dart';
-import 'package:hq/shared/constants/general_constants.dart';
-import 'package:hq/shared/network/local/const_shared.dart';
-import 'package:hq/translations/locale_keys.g.dart';
+import 'package:sultan/cubit/cubit.dart';
+import 'package:sultan/cubit/states.dart';
+import 'package:sultan/screens/main_screens/reservations/details_screens/home_appointments/home_appointments_screen.dart';
+import 'package:sultan/screens/main_screens/reservations/details_screens/lab_appointments/lab_appointments_screen.dart';
+import 'package:sultan/shared/components/cached_network_image.dart';
+import 'package:sultan/shared/components/general_components.dart';
+import 'package:sultan/shared/constants/colors.dart';
+import 'package:sultan/shared/constants/general_constants.dart';
+import 'package:sultan/shared/network/local/const_shared.dart';
+import 'package:sultan/translations/locale_keys.g.dart';
 
-class CartScreen extends StatefulWidget {
-  const CartScreen({Key? key}) : super(key: key);
+class CartScreen extends StatelessWidget {
+   CartScreen({Key? key}) : super(key: key);
 
-  @override
-  State<CartScreen> createState() => _CartScreenState();
-}
-
-class _CartScreenState extends State<CartScreen> {
   var couponController = TextEditingController();
 
   @override
@@ -45,8 +39,10 @@ class _CartScreenState extends State<CartScreen> {
             padding:
                 const EdgeInsets.only(right: 20.0, left: 20.0, bottom: 20.0),
             child: ConditionalBuilder(
-              condition: state is! AppGetCartLoadingState || state is! AppDeleteCartLoadingState,
-              builder: (context) => ListView(
+              condition: state is! AppGetCartLoadingState ||
+                  state is! AppDeleteCartLoadingState,
+              builder: (context) {
+                return ListView(
                 physics: const BouncingScrollPhysics(),
                 children: [
                   SizedBox(
@@ -263,8 +259,8 @@ class _CartScreenState extends State<CartScreen> {
                                   ),
                                   const Spacer(),
                                   Text(
-                                    textAlign: TextAlign.start,
                                     '${cartModel?.data?.length ?? 1}',
+                                    textAlign: TextAlign.start,
                                     style: titleSmallStyle,
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
@@ -284,8 +280,8 @@ class _CartScreenState extends State<CartScreen> {
                                   ),
                                   const Spacer(),
                                   Text(
-                                    textAlign: TextAlign.start,
                                     '${cartModel?.extra?.price} ${LocaleKeys.salary.tr()}',
+                                    textAlign: TextAlign.start,
                                     style: titleSmallStyle,
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
@@ -305,8 +301,8 @@ class _CartScreenState extends State<CartScreen> {
                                   ),
                                   const Spacer(),
                                   Text(
-                                    textAlign: TextAlign.start,
                                     '${cartModel?.extra?.tax}',
+                                    textAlign: TextAlign.start,
                                     style: titleSmallStyle,
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
@@ -328,8 +324,8 @@ class _CartScreenState extends State<CartScreen> {
                                   ),
                                   const Spacer(),
                                   Text(
-                                    textAlign: TextAlign.start,
                                     '${cartModel?.extra?.total} ${LocaleKeys.salary.tr()}',
+                                    textAlign: TextAlign.start,
                                     style: titleSmallStyle,
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
@@ -523,7 +519,8 @@ class _CartScreenState extends State<CartScreen> {
                   ),
                   verticalSmallSpace,
                 ],
-              ),
+              );
+              },
               fallback: (context) =>
                   const Center(child: CircularProgressIndicator.adaptive()),
             ),

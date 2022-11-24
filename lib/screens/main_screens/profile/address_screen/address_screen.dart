@@ -6,15 +6,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_swipe_action_cell/core/cell.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:hq/cubit/cubit.dart';
-import 'package:hq/cubit/states.dart';
-import 'package:hq/screens/main_screens/profile/address_screen/map_screen.dart';
-import 'package:hq/screens/main_screens/profile/widget_components/widget_components.dart';
-import 'package:hq/shared/components/general_components.dart';
-import 'package:hq/shared/constants/colors.dart';
-import 'package:hq/shared/constants/general_constants.dart';
-import 'package:hq/shared/network/local/const_shared.dart';
-import 'package:hq/translations/locale_keys.g.dart';
+import 'package:sultan/cubit/cubit.dart';
+import 'package:sultan/cubit/states.dart';
+import 'package:sultan/screens/main_screens/profile/address_screen/map_screen.dart';
+import 'package:sultan/screens/main_screens/profile/widget_components/widget_components.dart';
+import 'package:sultan/shared/components/general_components.dart';
+import 'package:sultan/shared/constants/colors.dart';
+import 'package:sultan/shared/constants/general_constants.dart';
+import 'package:sultan/shared/network/local/const_shared.dart';
+import 'package:sultan/translations/locale_keys.g.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class AddressScreen extends StatefulWidget {
@@ -44,14 +44,14 @@ class _AddressScreenState extends State<AddressScreen> {
     PermissionStatus result;
     // In Android we need to request the storage permission,
     // while in iOS is the photos permission
-    if (Platform.isAndroid) {
+    if (Platform.isAndroid || Platform.isIOS) {
       result = await Permission.location.request();
     } else {
       result = await Permission.locationAlways.request();
     }
 
     if (result.isGranted) {
-      getLocation();
+        getLocation();
       return true;
     } else if (Platform.isIOS || result.isPermanentlyDenied) {
       return false;
@@ -90,7 +90,7 @@ class _AddressScreenState extends State<AddressScreen> {
                         context,
                         FadeRoute(
                           page: MapScreen(
-                            position: position!,
+                            position: position,
                           ),
                         ),
                       );

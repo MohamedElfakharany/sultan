@@ -10,11 +10,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gender_picker/source/enums.dart';
 import 'package:gender_picker/source/gender_picker.dart';
-import 'package:hq/cubit/cubit.dart';
-import 'package:hq/shared/components/general_components.dart';
-import 'package:hq/shared/constants/colors.dart';
-import 'package:hq/shared/constants/general_constants.dart';
-import 'package:hq/translations/locale_keys.g.dart';
+import 'package:sultan/cubit/cubit.dart';
+import 'package:sultan/shared/components/general_components.dart';
+import 'package:sultan/shared/constants/colors.dart';
+import 'package:sultan/shared/constants/general_constants.dart';
+import 'package:sultan/translations/locale_keys.g.dart';
 import 'package:keyboard_actions/keyboard_actions.dart';
 
 import '../../../../cubit/states.dart';

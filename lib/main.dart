@@ -8,14 +8,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hq/cubit/cubit.dart';
-import 'package:hq/screens/intro_screens/startup/splash_screen.dart';
-import 'package:hq/shared/bloc_observer.dart';
-import 'package:hq/shared/network/local/cache_helper.dart';
-import 'package:hq/shared/network/local/const_shared.dart';
-import 'package:hq/shared/network/remote/dio_helper.dart';
-import 'package:hq/tech_lib/tech_cubit/tech_cubit.dart';
-import 'package:hq/translations/codegen_loader.g.dart';
+import 'package:sultan/cubit/cubit.dart';
+import 'package:sultan/screens/intro_screens/startup/splash_screen.dart';
+import 'package:sultan/shared/bloc_observer.dart';
+import 'package:sultan/shared/network/local/cache_helper.dart';
+import 'package:sultan/shared/network/local/const_shared.dart';
+import 'package:sultan/shared/network/remote/dio_helper.dart';
+import 'package:sultan/tech_lib/tech_cubit/tech_cubit.dart';
+import 'package:sultan/translations/codegen_loader.g.dart';
 
 void main() async {
   ErrorWidget.builder = (FlutterErrorDetails details) {
@@ -147,10 +147,9 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 class MyApp extends StatelessWidget {
   final Widget startWidget;
 
-  const MyApp({
-    super.key,
+  const MyApp({Key? key,
     required this.startWidget,
-  });
+  }) : super(key: key);
 
   // This widget is the root of your application.
   @override

@@ -5,14 +5,14 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hq/cubit/cubit.dart';
-import 'package:hq/cubit/states.dart';
-import 'package:hq/screens/intro_screens/auth/login_screen.dart';
-import 'package:hq/shared/components/general_components.dart';
-import 'package:hq/shared/constants/colors.dart';
-import 'package:hq/shared/constants/general_constants.dart';
-import 'package:hq/shared/network/local/const_shared.dart';
-import 'package:hq/translations/locale_keys.g.dart';
+import 'package:sultan/cubit/cubit.dart';
+import 'package:sultan/cubit/states.dart';
+import 'package:sultan/screens/intro_screens/auth/login_screen.dart';
+import 'package:sultan/shared/components/general_components.dart';
+import 'package:sultan/shared/constants/colors.dart';
+import 'package:sultan/shared/constants/general_constants.dart';
+import 'package:sultan/shared/network/local/const_shared.dart';
+import 'package:sultan/translations/locale_keys.g.dart';
 import 'package:keyboard_actions/keyboard_actions.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
@@ -152,7 +152,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 15, vertical: 10),
                     child: Container(
-                      decoration: const BoxDecoration(
+                      decoration: BoxDecoration(
                         boxShadow: [
                           BoxShadow(
                             color: whiteColor,
@@ -245,7 +245,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 15, vertical: 10),
                     child: Container(
-                      decoration: const BoxDecoration(
+                      decoration: BoxDecoration(
                         boxShadow: [
                           BoxShadow(
                             color: whiteColor,
@@ -315,16 +315,19 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   verticalMiniSpace,
                   ConditionalBuilder(
                     condition: state is! AppResetPasswordLoadingState,
-                    builder: (context) => GeneralButton(
-                      title: LocaleKeys.BtnReset.tr(),
-                      onPress: () {
-                        if (formKey.currentState!.validate()) {
+                    builder: (context) => Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                      child: GeneralButton(
+                        title: LocaleKeys.BtnReset.tr(),
+                        onPress: () {
+                          if (formKey.currentState!.validate()) {
 
-                          AppCubit.get(context).resetPassword(
-                              resetToken: widget.resetToken,
-                              newPassword: passwordController.text);
-                        }
-                      },
+                            AppCubit.get(context).resetPassword(
+                                resetToken: widget.resetToken,
+                                newPassword: passwordController.text);
+                          }
+                        },
+                      ),
                     ),
                     fallback: (context) => const Center(
                       child: CircularProgressIndicator.adaptive(),

@@ -3,15 +3,15 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hq/models/model_test.dart';
-import 'package:hq/shared/components/general_components.dart';
-import 'package:hq/shared/constants/colors.dart';
-import 'package:hq/shared/constants/general_constants.dart';
-import 'package:hq/shared/network/local/const_shared.dart';
-import 'package:hq/tech_lib/tech_components.dart';
-import 'package:hq/tech_lib/tech_cubit/tech_cubit.dart';
-import 'package:hq/tech_lib/tech_cubit/tech_states.dart';
-import 'package:hq/translations/locale_keys.g.dart';
+import 'package:sultan/models/model_test.dart';
+import 'package:sultan/shared/components/general_components.dart';
+import 'package:sultan/shared/constants/colors.dart';
+import 'package:sultan/shared/constants/general_constants.dart';
+import 'package:sultan/shared/network/local/const_shared.dart';
+import 'package:sultan/tech_lib/tech_components.dart';
+import 'package:sultan/tech_lib/tech_cubit/tech_cubit.dart';
+import 'package:sultan/tech_lib/tech_cubit/tech_states.dart';
+import 'package:sultan/translations/locale_keys.g.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class TechReservedScreen extends StatefulWidget {

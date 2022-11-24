@@ -2,15 +2,15 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hq/cubit/cubit.dart';
-import 'package:hq/cubit/states.dart';
-import 'package:hq/screens/main_screens/profile/region_settings/change_language.dart';
-import 'package:hq/screens/main_screens/results/result_details.dart';
-import 'package:hq/screens/main_screens/results/widget_components.dart';
-import 'package:hq/shared/components/general_components.dart';
-import 'package:hq/shared/constants/colors.dart';
-import 'package:hq/shared/constants/general_constants.dart';
-import 'package:hq/translations/locale_keys.g.dart';
+import 'package:sultan/cubit/cubit.dart';
+import 'package:sultan/cubit/states.dart';
+import 'package:sultan/screens/main_screens/profile/region_settings/change_language.dart';
+import 'package:sultan/screens/main_screens/results/result_details.dart';
+import 'package:sultan/screens/main_screens/results/widget_components.dart';
+import 'package:sultan/shared/components/general_components.dart';
+import 'package:sultan/shared/constants/colors.dart';
+import 'package:sultan/shared/constants/general_constants.dart';
+import 'package:sultan/translations/locale_keys.g.dart';
 
 class ResultsScreen extends StatefulWidget {
   const ResultsScreen({Key? key}) : super(key: key);
@@ -39,7 +39,7 @@ class _ResultsScreenState extends State<ResultsScreen> {
           child: Scaffold(
             backgroundColor: greyExtraLightColor,
             body: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              padding: const EdgeInsets.symmetric(horizontal: 15.0),
               child: Column(
                 children: <Widget>[
                   // the tab bar with two items
@@ -57,6 +57,7 @@ class _ResultsScreenState extends State<ResultsScreen> {
                         //   borderRadius: BorderRadius.circular(20),
                         // ),
                         bottom: TabBar(
+                          indicatorColor: mainColor,
                           tabs: [
                             Tab(
                               child: Column(
@@ -206,9 +207,7 @@ class _ResultsScreenState extends State<ResultsScreen> {
                         children: [
                           // first tab bar view widget
                           ConditionalBuilder(
-                            condition:
-                            AppCubit.get(context).labResultsModel?.data?.isEmpty ==
-                                false,
+                            condition: AppCubit.get(context).labResultsModel!.data!.isEmpty,
                             builder: (context)=> Column(
                               children: [
                                 verticalSmallSpace,

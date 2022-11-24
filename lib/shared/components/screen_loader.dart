@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hq/shared/constants/colors.dart';
+import 'package:sultan/shared/constants/colors.dart';
 
 class ScreenLoader extends StatelessWidget {
   const ScreenLoader({Key? key}) : super(key: key);

@@ -2,14 +2,14 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hq/cubit/cubit.dart';
-import 'package:hq/cubit/states.dart';
-import 'package:hq/models/patient_models/profile_models/medical-inquiries.dart';
-import 'package:hq/shared/components/general_components.dart';
-import 'package:hq/shared/constants/colors.dart';
-import 'package:hq/shared/constants/general_constants.dart';
-import 'package:hq/shared/network/local/const_shared.dart';
-import 'package:hq/translations/locale_keys.g.dart';
+import 'package:sultan/cubit/cubit.dart';
+import 'package:sultan/cubit/states.dart';
+import 'package:sultan/models/patient_models/profile_models/medical-inquiries.dart';
+import 'package:sultan/shared/components/general_components.dart';
+import 'package:sultan/shared/constants/colors.dart';
+import 'package:sultan/shared/constants/general_constants.dart';
+import 'package:sultan/shared/network/local/const_shared.dart';
+import 'package:sultan/translations/locale_keys.g.dart';
 
 class InquiryScreen extends StatelessWidget {
   const InquiryScreen({Key? key, required this.medicalInquiriesDataModel})
@@ -89,6 +89,7 @@ class InquiryScreen extends StatelessWidget {
                     ),
                   ),
                   verticalSmallSpace,
+                  if (medicalInquiriesDataModel.answer?.date?.date != null)
                   Align(
                     alignment: Alignment.center,
                     child: Container(
@@ -107,6 +108,7 @@ class InquiryScreen extends StatelessWidget {
                     ),
                   ),
                   verticalSmallSpace,
+                  if (medicalInquiriesDataModel.answer?.date?.date != null)
                   Align(
                     alignment: AlignmentDirectional.centerEnd,
                     child: Column(
@@ -147,6 +149,18 @@ class InquiryScreen extends StatelessWidget {
                       ],
                     ),
                   ),
+                  if (medicalInquiriesDataModel.answer?.date?.date == null)
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(radius),
+                        color: greyExtraLightColor,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ScreenHolder(msg: LocaleKeys.txtAnswer.tr()),
+                      ),
+                    ),
                 ],
               ),
             ),

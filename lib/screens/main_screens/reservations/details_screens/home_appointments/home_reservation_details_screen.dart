@@ -4,17 +4,17 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hq/cubit/cubit.dart';
-import 'package:hq/cubit/states.dart';
-import 'package:hq/models/patient_models/test_models/offers_model.dart';
-import 'package:hq/models/patient_models/test_models/tests_model.dart';
-import 'package:hq/screens/main_screens/profile/address_screen/address_screen.dart';
-import 'package:hq/screens/main_screens/reservations/details_screens/home_appointments/home_reservation_overview_screen.dart';
-import 'package:hq/shared/components/general_components.dart';
-import 'package:hq/shared/constants/colors.dart';
-import 'package:hq/shared/constants/general_constants.dart';
-import 'package:hq/shared/network/local/const_shared.dart';
-import 'package:hq/translations/locale_keys.g.dart';
+import 'package:sultan/cubit/cubit.dart';
+import 'package:sultan/cubit/states.dart';
+import 'package:sultan/models/patient_models/test_models/offers_model.dart';
+import 'package:sultan/models/patient_models/test_models/tests_model.dart';
+import 'package:sultan/screens/main_screens/profile/address_screen/address_screen.dart';
+import 'package:sultan/screens/main_screens/reservations/details_screens/home_appointments/home_reservation_overview_screen.dart';
+import 'package:sultan/shared/components/general_components.dart';
+import 'package:sultan/shared/constants/colors.dart';
+import 'package:sultan/shared/constants/general_constants.dart';
+import 'package:sultan/shared/network/local/const_shared.dart';
+import 'package:sultan/translations/locale_keys.g.dart';
 
 class HomeReservationDetailsScreen extends StatefulWidget {
   HomeReservationDetailsScreen(
@@ -54,6 +54,7 @@ class _HomeReservationDetailsScreenState
     return BlocConsumer<AppCubit, AppStates>(
       listener: (context, state) {},
       builder: (context, state) {
+        print('HomeReservationDetailsScreen');
         // locationValue = extraBranchTitle;
         return Scaffold(
           backgroundColor: greyExtraLightColor,
@@ -193,59 +194,6 @@ class _HomeReservationDetailsScreenState
                               ],
                             ),
                           ),
-                          // myHorizontalDivider(),
-                          // Expanded(
-                          //   child: DropdownButtonHideUnderline(
-                          //     child: DropdownButtonFormField<String>(
-                          //       validator: (value) {
-                          //         if (value == null) {
-                          //           return 'Location Required';
-                          //         }
-                          //       },
-                          //       decoration: InputDecoration(
-                          //         prefixIcon: const Icon(
-                          //           Icons.location_on_rounded,
-                          //           color: greyLightColor,
-                          //           size: 30,
-                          //         ),
-                          //         contentPadding: const EdgeInsetsDirectional.only(
-                          //             start: 20.0, end: 0.0, bottom: 15.0),
-                          //         fillColor: Colors.white,
-                          //         filled: true,
-                          //         errorStyle:
-                          //         const TextStyle(color: Color(0xFF4F4F4F)),
-                          //         border: InputBorder.none,
-                          //         suffixIcon: IconButton(
-                          //           onPressed: () {
-                          //             Navigator.push(
-                          //               context,
-                          //               FadeRoute(
-                          //                 page: MapScreen(),
-                          //               ),
-                          //             );
-                          //           },
-                          //           icon: const Icon(
-                          //             Icons.add_location_alt_outlined,
-                          //             color: blueColor,
-                          //           ),
-                          //         ),
-                          //       ),
-                          //       value: locationItems.first,
-                          //       isExpanded: true,
-                          //       iconSize: 30,
-                          //       icon: const Icon(
-                          //         Icons.keyboard_arrow_down_rounded,
-                          //         color: blueColor,
-                          //       ),
-                          //       items:
-                          //       locationItems.map(buildLocationItem).toList(),
-                          //       onChanged: (value) =>
-                          //           setState(() => locationValue = value),
-                          //       onSaved: (v) {
-                          //       },
-                          //     ),
-                          //   ),
-                          // ),
                           myHorizontalDivider(),
                           Expanded(
                             child: DropdownButtonHideUnderline(

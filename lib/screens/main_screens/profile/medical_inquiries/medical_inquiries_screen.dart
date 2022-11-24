@@ -5,15 +5,15 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_swipe_action_cell/flutter_swipe_action_cell.dart';
-import 'package:hq/cubit/cubit.dart';
-import 'package:hq/cubit/states.dart';
-import 'package:hq/screens/main_screens/profile/medical_inquiries/inquiry_screen.dart';
-import 'package:hq/screens/main_screens/profile/medical_inquiries/new_inquiry.dart';
-import 'package:hq/screens/main_screens/profile/widget_components/widget_components.dart';
-import 'package:hq/shared/components/general_components.dart';
-import 'package:hq/shared/constants/colors.dart';
-import 'package:hq/shared/constants/general_constants.dart';
-import 'package:hq/translations/locale_keys.g.dart';
+import 'package:sultan/cubit/cubit.dart';
+import 'package:sultan/cubit/states.dart';
+import 'package:sultan/screens/main_screens/profile/medical_inquiries/inquiry_screen.dart';
+import 'package:sultan/screens/main_screens/profile/medical_inquiries/new_inquiry.dart';
+import 'package:sultan/screens/main_screens/profile/widget_components/widget_components.dart';
+import 'package:sultan/shared/components/general_components.dart';
+import 'package:sultan/shared/constants/colors.dart';
+import 'package:sultan/shared/constants/general_constants.dart';
+import 'package:sultan/translations/locale_keys.g.dart';
 
 class MedicalInquiriesScreen extends StatefulWidget {
   const MedicalInquiriesScreen({Key? key}) : super(key: key);

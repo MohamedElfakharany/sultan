@@ -1,12 +1,12 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:hq/models/patient_models/home_appointments_model/home_result_model.dart';
-import 'package:hq/models/patient_models/lab_appointments_model/lab_result_model.dart';
-import 'package:hq/shared/components/cached_network_image.dart';
-import 'package:hq/shared/constants/colors.dart';
-import 'package:hq/shared/constants/general_constants.dart';
-import 'package:hq/shared/network/local/const_shared.dart';
+import 'package:sultan/models/patient_models/home_appointments_model/home_result_model.dart';
+import 'package:sultan/models/patient_models/lab_appointments_model/lab_result_model.dart';
+import 'package:sultan/shared/components/cached_network_image.dart';
+import 'package:sultan/shared/constants/colors.dart';
+import 'package:sultan/shared/constants/general_constants.dart';
+import 'package:sultan/shared/network/local/const_shared.dart';
 
 class ResultsScreenCard extends StatelessWidget {
   ResultsScreenCard({Key? key, this.labResultsModel,required this.index, this.homeResultsModel}) : super(key: key);
@@ -93,8 +93,9 @@ class ResultsScreenCard extends StatelessWidget {
 }
 
 class ResultsDetailsCart extends StatelessWidget {
-  const ResultsDetailsCart({Key? key, required this.labResultsDataFileModel}) : super(key: key);
-  final LabResultsDataFileModel labResultsDataFileModel;
+   ResultsDetailsCart({Key? key, this.labResultsDataFileModel, this.homeResultsDataFileModel}) : super(key: key);
+  LabResultsDataFileModel? labResultsDataFileModel;
+  HomeResultsDataFileModel? homeResultsDataFileModel;
 
   @override
   Widget build(BuildContext context) {
@@ -128,14 +129,14 @@ class ResultsDetailsCart extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      '# ${labResultsDataFileModel.id}',
+                      '# ${labResultsDataFileModel?.id ?? homeResultsDataFileModel?.id}',
                       style: titleSmallStyle,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
                     horizontalMediumSpace,
                     Text(
-                      '${labResultsDataFileModel.date?.date ?? 0}',
+                      '${labResultsDataFileModel?.date?.date  ?? homeResultsDataFileModel?.date?.date}',
                       style: subTitleSmallStyle2,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -143,7 +144,14 @@ class ResultsDetailsCart extends StatelessWidget {
                   ],
                 ),
                 Text(
-                  '${labResultsDataFileModel.notes}',
+                  '${labResultsDataFileModel?.title ?? homeResultsDataFileModel?.title ?? ''}',
+                  style: subTitleSmallStyle2,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                if (labResultsDataFileModel?.notes != null || homeResultsDataFileModel?.notes != null)
+                Text(
+                  '${labResultsDataFileModel?.notes ?? homeResultsDataFileModel?.notes ?? ''}',
                   style: subTitleSmallStyle2,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
