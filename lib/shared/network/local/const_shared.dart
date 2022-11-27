@@ -31,10 +31,19 @@ const String fontFamily = 'Poppins';
 /// SULTAN MEDICAL
 String appLogo  = "assets/images/appLogo.jpg";
 String profileBG  = "assets/images/sultanBg.png";
+String profileLocationImage  = "assets/images/location-bold.svg";
+String profileLogOutImage  = "assets/images/logout-linear.svg";
+String profileMessageImage  = "assets/images/messages-bold.svg";
+String profilePeopleImage = "assets/images/people-bold.svg";
+String profileSettingImage  = "assets/images/setting-2-bold.svg";
+String profileUserImage  = "assets/images/user-octagon-bold.svg";
+String profileEyeShieldImage  = "assets/images/eye-shield-tick-bold.svg";
 
 /// HQ
 // String appLogo  = "assets/images/HqAppLogo.jpg";
 // String profileBG  = "assets/images/profileAppBar.jpg";
+// String message  = "assets/images/inquiries.jpg";
+
 
 double radius = 8;
 

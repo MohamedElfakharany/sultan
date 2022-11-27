@@ -1,0 +1,10 @@
+<svg id="card-pos_bold" data-name="card-pos/bold" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <g id="vuesax_bold_card-pos" data-name="vuesax/bold/card-pos">
+    <g id="card-pos">
+      <path id="Vector" d="M20,.75a.755.755,0,0,1-.75.75H.75A.755.755,0,0,1,0,.75.755.755,0,0,1,.75,0h18.5A.755.755,0,0,1,20,.75Z" transform="translate(2 20.5)" fill="#dd4e4a"/>
+      <path id="Vector-2" data-name="Vector" d="M13.262,2.51,2.523,13.25a1.032,1.032,0,0,1-1.47,0h-.01a3.579,3.579,0,0,1,0-5.05l7.15-7.15a3.573,3.573,0,0,1,5.06,0A1.029,1.029,0,0,1,13.262,2.51Z" transform="translate(2.128 2.01)" fill="#dd4e4a"/>
+      <path id="Vector-3" data-name="Vector" d="M15.568,3.357,12.518.308a1.032,1.032,0,0,0-1.47,0L.308,11.048a1.032,1.032,0,0,0,0,1.47l3.05,3.06a3.591,3.591,0,0,0,5.06,0l7.14-7.15A3.558,3.558,0,0,0,15.568,3.357Zm-8.06,9.03L6.3,13.608a.651.651,0,1,1-.92-.92l1.22-1.22a.665.665,0,0,1,.91,0A.658.658,0,0,1,7.508,12.388Zm3.97-3.97-2.44,2.45a.678.678,0,0,1-.92,0,.658.658,0,0,1,0-.92l2.45-2.45a.665.665,0,0,1,.91,0A.658.658,0,0,1,11.477,8.418Z" transform="translate(5.253 5.133)" fill="#dd4e4a"/>
+      <path id="Vector-4" data-name="Vector" d="M0,0H24V24H0Z" fill="none" opacity="0"/>
+    </g>
+  </g>
+</svg>

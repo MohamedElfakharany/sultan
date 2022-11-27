@@ -231,7 +231,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       verticalMiniSpace,
                       Row(
                         children: [
-                          Text(LocaleKeys.txtTestCategories.tr(),
+                          Text(LocaleKeys.txtTestCategoriesMain.tr(),
                               style: titleStyle),
                           const Spacer(),
                           TextButton(
@@ -248,40 +248,45 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       ),
                       verticalMiniSpace,
-                      SizedBox(
-                        height: 110.0,
-                        width: double.infinity,
-                        child: ListView.separated(
-                          physics: const BouncingScrollPhysics(),
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) => InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                FadeRoute(
-                                  page: TestItemsScreen(
-                                    categoryId: AppCubit.get(context)
-                                        .categoriesModel!
-                                        .data![index]
-                                        .id,
+                      ConditionalBuilder(
+                        condition: cubit.testsModel?.data == null,
+                        builder: (context) => SizedBox(
+                          height: 110.0,
+                          width: double.infinity,
+                          child: ListView.separated(
+                            physics: const BouncingScrollPhysics(),
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) => InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  FadeRoute(
+                                    page: TestItemsScreen(
+                                      categoryId: AppCubit.get(context)
+                                          .categoriesModel!
+                                          .data![index]
+                                          .id,
+                                    ),
                                   ),
-                                ),
-                              );
-                            },
-                            child: CategoriesCard(
-                              categoriesDataModel: AppCubit.get(context)
-                                  .categoriesModel!
-                                  .data![index],
+                                );
+                              },
+                              child: CategoriesCard(
+                                categoriesDataModel: AppCubit.get(context)
+                                    .categoriesModel!
+                                    .data![index],
+                              ),
                             ),
+                            separatorBuilder: (context, index) =>
+                                horizontalMiniSpace,
+                            itemCount: AppCubit.get(context)
+                                    .categoriesModel
+                                    ?.data
+                                    ?.length ??
+                                0,
                           ),
-                          separatorBuilder: (context, index) =>
-                              horizontalMiniSpace,
-                          itemCount: AppCubit.get(context)
-                                  .categoriesModel
-                                  ?.data
-                                  ?.length ??
-                              0,
                         ),
+                        fallback: (context) =>
+                            ScreenHolder(msg: LocaleKeys.homeTxtOffers.tr()),
                       ),
                       verticalMiniSpace,
                       Container(
@@ -319,6 +324,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   GeneralButton(
                                     title:
                                         '${LocaleKeys.TxtReservationScreenTitle.tr()} ${LocaleKeys.txtNow.tr()}',
+                                    fontSize: 15,
                                     onPress: () {
                                       if (AppCubit.get(context).isVisitor ==
                                           true) {
@@ -374,44 +380,48 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       ),
                       ConditionalBuilder(
-                        condition: cubit.offersModel?.data != null ||
-                            state is! AppGetOffersLoadingState,
-                        builder: (context) => SizedBox(
-                          height: 235.0,
-                          width: MediaQuery.of(context).size.width * 0.8,
-                          child: ListView.separated(
-                            physics: const BouncingScrollPhysics(),
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) => InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  FadeRoute(
-                                    page: TestDetailsScreen(
-                                      offersDataModel: AppCubit.get(context)
-                                          .offersModel!
-                                          .data![index],
+                        condition: cubit.offersModel?.data != null,
+                        builder: (context) => ConditionalBuilder(
+                          condition: state is! AppGetOffersLoadingState,
+                          builder: (context) => SizedBox(
+                            height: 235.0,
+                            width: MediaQuery.of(context).size.width * 0.8,
+                            child: ListView.separated(
+                              physics: const BouncingScrollPhysics(),
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) => InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    FadeRoute(
+                                      page: TestDetailsScreen(
+                                        offersDataModel: AppCubit.get(context)
+                                            .offersModel!
+                                            .data![index],
+                                      ),
                                     ),
-                                  ),
-                                );
-                              },
-                              child: OffersCard(
-                                offersDataModel: AppCubit.get(context)
-                                    .offersModel!
-                                    .data![index],
+                                  );
+                                },
+                                child: OffersCard(
+                                  offersDataModel: AppCubit.get(context)
+                                      .offersModel!
+                                      .data![index],
+                                ),
                               ),
+                              separatorBuilder: (context, index) =>
+                                  horizontalMiniSpace,
+                              itemCount: AppCubit.get(context)
+                                      .offersModel
+                                      ?.data
+                                      ?.length ??
+                                  0,
                             ),
-                            separatorBuilder: (context, index) =>
-                                horizontalMiniSpace,
-                            itemCount: AppCubit.get(context)
-                                    .offersModel
-                                    ?.data
-                                    ?.length ??
-                                0,
                           ),
+                          fallback: (context) => const Center(
+                              child: CircularProgressIndicator.adaptive()),
                         ),
-                        fallback: (context) => const Center(
-                            child: CircularProgressIndicator.adaptive()),
+                        fallback: (context) =>
+                            ScreenHolder(msg: LocaleKeys.homeTxtOffers.tr()),
                       ),
                       verticalMiniSpace,
                     ],

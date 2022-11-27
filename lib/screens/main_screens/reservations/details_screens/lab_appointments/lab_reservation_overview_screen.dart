@@ -5,6 +5,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_swipe_action_cell/flutter_swipe_action_cell.dart';
 import 'package:sultan/cubit/cubit.dart';
 import 'package:sultan/cubit/states.dart';
@@ -18,6 +19,7 @@ import 'package:sultan/shared/constants/general_constants.dart';
 import 'package:sultan/shared/network/local/const_shared.dart';
 import 'package:sultan/translations/locale_keys.g.dart';
 import 'package:keyboard_actions/keyboard_actions.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class LabReservationOverviewScreen extends StatefulWidget {
   LabReservationOverviewScreen(
@@ -55,8 +57,8 @@ class _LabReservationOverviewScreenState
       Iterable<int>.generate(1).map((_) => FocusNode()).toList();
 
   @override
-  void initState(){
-    if (widget.testsDataModel == null && widget.offersDataModel == null){
+  void initState() {
+    if (widget.testsDataModel == null && widget.offersDataModel == null) {
       // AppCubit.get(context).getCart();
     }
   }
@@ -149,208 +151,324 @@ class _LabReservationOverviewScreenState
       },
       builder: (context, state) {
         var cartModel = AppCubit.get(context).cartModel;
-        return Scaffold(
-          backgroundColor: greyExtraLightColor,
-          appBar: GeneralAppBar(
-            title: LocaleKeys.txtOverview.tr(),
-            centerTitle: false,
-            appBarColor: greyExtraLightColor,
-          ),
-          body: ConditionalBuilder(
-            condition: state is! AppGetCartLoadingState,
-            builder: (context) => Padding(
-              padding:
-              const EdgeInsets.only(right: 20.0, left: 20.0, bottom: 20.0),
-              child: Form(
-                key: formKey,
-                child: KeyboardActions(
-                  tapOutsideBehavior: TapOutsideBehavior.translucentDismiss,
-                  config: KeyboardActionsConfig(
-                    // Define ``defaultDoneWidget`` only once in the config
-                    defaultDoneWidget: doneKeyboard(),
-                    actions: _focusNodes
-                        .map((focusNode) =>
-                        KeyboardActionsItem(focusNode: focusNode))
-                        .toList(),
-                  ),
-                  child: ListView(
-                    physics: const BouncingScrollPhysics(),
-                    children: [
-                      if (widget.testsDataModel != null ||
-                          widget.offersDataModel != null)
+        return ScreenUtilInit(
+          builder: (ctx, _) => Scaffold(
+            backgroundColor: greyExtraLightColor,
+            appBar: GeneralAppBar(
+              title: LocaleKeys.txtOverview.tr(),
+              centerTitle: false,
+              appBarColor: greyExtraLightColor,
+            ),
+            body: ConditionalBuilder(
+              condition: state is! AppGetCartLoadingState,
+              builder: (context) => Padding(
+                padding: const EdgeInsets.only(
+                    right: 20.0, left: 20.0, bottom: 20.0),
+                child: Form(
+                  key: formKey,
+                  child: KeyboardActions(
+                    tapOutsideBehavior: TapOutsideBehavior.translucentDismiss,
+                    config: KeyboardActionsConfig(
+                      // Define ``defaultDoneWidget`` only once in the config
+                      defaultDoneWidget: doneKeyboard(),
+                      actions: _focusNodes
+                          .map((focusNode) =>
+                              KeyboardActionsItem(focusNode: focusNode))
+                          .toList(),
+                    ),
+                    child: ListView(
+                      physics: const BouncingScrollPhysics(),
+                      children: [
+                        if (widget.testsDataModel != null ||
+                            widget.offersDataModel != null)
+                          Container(
+                            height: 110.0,
+                            width: 110.0,
+                            decoration: BoxDecoration(
+                              color: whiteColor,
+                              borderRadius: BorderRadius.circular(radius),
+                              border: Border.all(
+                                width: 1,
+                                color: greyLightColor,
+                              ),
+                            ),
+                            alignment: AlignmentDirectional.center,
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 0, horizontal: 4),
+                            child: Row(
+                              children: [
+                                horizontalMicroSpace,
+                                CachedNetworkImageNormal(
+                                  imageUrl: widget.offersDataModel?.image ??
+                                      widget.testsDataModel?.image ??
+                                      '',
+                                  width: 80,
+                                  height: 80,
+                                ),
+                                horizontalSmallSpace,
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        widget.offersDataModel?.title ??
+                                            widget.testsDataModel?.title ??
+                                            '',
+                                        style: titleSmallStyle,
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      Text(
+                                        widget.testsDataModel?.category?.name ??
+                                            '',
+                                        style: subTitleSmallStyle2,
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      Text(
+                                        '${widget.offersDataModel?.discount ?? widget.testsDataModel?.price} ${LocaleKeys.salary.tr()}',
+                                        style: titleSmallStyle2,
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        if (widget.testsDataModel == null &&
+                            widget.offersDataModel == null)
+                          SizedBox(
+                            height: 120.0 * (cartModel?.data?.length ?? 0),
+                            child: ListView.separated(
+                              physics: const BouncingScrollPhysics(),
+                              scrollDirection: Axis.vertical,
+                              itemBuilder: (context, index) => SwipeActionCell(
+                                key: const ValueKey(1),
+                                trailingActions: [
+                                  SwipeAction(
+                                    nestedAction: SwipeNestedAction(
+                                      /// customize your nested action content
+                                      content: ConditionalBuilder(
+                                        condition: state
+                                            is! AppDeleteInquiryLoadingState,
+                                        builder: (context) => Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(30),
+                                            color: Colors.red,
+                                          ),
+                                          width: 130,
+                                          height: 60,
+                                          child: OverflowBox(
+                                            maxWidth: double.infinity,
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                const Icon(
+                                                  Icons.delete,
+                                                  color: Colors.white,
+                                                ),
+                                                Text(LocaleKeys.BtnDelete.tr(),
+                                                    style: const TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 20)),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        fallback: (context) => const Center(
+                                            child: CircularProgressIndicator
+                                                .adaptive()),
+                                      ),
+                                    ),
+
+                                    /// you should set the default  bg color to transparent
+                                    color: Colors.transparent,
+
+                                    /// set content instead of title of icon
+                                    content: _getIconButton(
+                                        Colors.red, Icons.delete),
+                                    onTap: (handler) async {
+                                      AppCubit.get(context).deleteCart(
+                                        cartId: AppCubit.get(context)
+                                            .cartModel!
+                                            .data![index]
+                                            .id,
+                                      );
+                                    },
+                                  ),
+                                ],
+                                child: Container(
+                                  height: 110.0,
+                                  width: 110.0,
+                                  decoration: BoxDecoration(
+                                    color: whiteColor,
+                                    borderRadius: BorderRadius.circular(radius),
+                                    border: Border.all(
+                                      width: 1,
+                                      color: greyLightColor,
+                                    ),
+                                  ),
+                                  alignment: AlignmentDirectional.center,
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 0, horizontal: 4),
+                                  child: Stack(
+                                    alignment: AlignmentDirectional.topEnd,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          horizontalMicroSpace,
+                                          CachedNetworkImageNormal(
+                                            imageUrl:
+                                                '${cartModel?.data?[index].image}',
+                                            width: 80,
+                                            height: 80,
+                                          ),
+                                          horizontalSmallSpace,
+                                          Expanded(
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  '${cartModel?.data?[index].title}',
+                                                  style: titleSmallStyle,
+                                                  maxLines: 1,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                ),
+                                                Text(
+                                                  '# ${cartModel?.data?[index].cartId}',
+                                                  style: subTitleSmallStyle2,
+                                                  maxLines: 1,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                ),
+                                                Text(
+                                                  '${cartModel?.data?[index].price} ${LocaleKeys.salary.tr()}',
+                                                  style: titleSmallStyle2,
+                                                  maxLines: 1,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              separatorBuilder: (context, index) =>
+                                  verticalMiniSpace,
+                              itemCount: cartModel?.data?.length ?? 0,
+                            ),
+                          ),
+                        verticalMiniSpace,
+                        Text(
+                          LocaleKeys.txtReservationDetails.tr(),
+                          style:
+                              titleStyle.copyWith(fontWeight: FontWeight.w500),
+                        ),
+                        verticalMiniSpace,
                         Container(
-                          height: 110.0,
-                          width: 110.0,
+                          height: 250.0,
+                          width: double.infinity,
                           decoration: BoxDecoration(
                             color: whiteColor,
                             borderRadius: BorderRadius.circular(radius),
-                            border: Border.all(
-                              width: 1,
-                              color: greyLightColor,
-                            ),
                           ),
                           alignment: AlignmentDirectional.center,
                           padding: const EdgeInsets.symmetric(
-                              vertical: 0, horizontal: 4),
-                          child: Row(
+                              vertical: 8, horizontal: 4),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              horizontalMicroSpace,
-                              CachedNetworkImageNormal(
-                                imageUrl: widget.offersDataModel?.image ??
-                                    widget.testsDataModel?.image ??
-                                    '',
-                                width: 80,
-                                height: 80,
-                              ),
-                              horizontalSmallSpace,
                               Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                                child: Row(
                                   children: [
-                                    Text(
-                                      widget.offersDataModel?.title ??
-                                          widget.testsDataModel?.title ??
-                                          '',
-                                      style: titleSmallStyle,
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
+                                    horizontalSmallSpace,
+                                    Image.asset(
+                                      'assets/images/profile.png',
+                                      width: 25,
+                                      height: 35,
+                                      color: mainColor,
                                     ),
-                                    Text(
-                                      widget.testsDataModel?.category?.name ?? '',
-                                      style: subTitleSmallStyle2,
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                    Text(
-                                      '${widget.offersDataModel?.discount ?? widget.testsDataModel?.price} ${LocaleKeys.salary.tr()}',
-                                      style: titleSmallStyle2,
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
+                                    myVerticalDivider(),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          LocaleKeys.txtPatient.tr(),
+                                          style: titleStyle.copyWith(
+                                              color: greyLightColor),
+                                        ),
+                                        if (AppCubit.get(context).isVisitor ==
+                                            false)
+                                          Text(
+                                            widget.familyName ??
+                                                AppCubit.get(context)
+                                                    .userResourceModel
+                                                    ?.data
+                                                    ?.name,
+                                            textAlign: TextAlign.start,
+                                            style: titleSmallStyle,
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                      ],
                                     ),
                                   ],
                                 ),
                               ),
-                            ],
-                          ),
-                        ),
-                      if (widget.testsDataModel == null &&
-                          widget.offersDataModel == null)
-                        SizedBox(
-                          height:
-                          120.0 * (cartModel?.data?.length ?? 0),
-                          child: ListView.separated(
-                            physics: const BouncingScrollPhysics(),
-                            scrollDirection: Axis.vertical,
-                            itemBuilder: (context, index) => SwipeActionCell(
-                              key: const ValueKey(1),
-                              trailingActions: [
-                                SwipeAction(
-                                  nestedAction: SwipeNestedAction(
-                                    /// customize your nested action content
-                                    content: ConditionalBuilder(
-                                      condition:
-                                      state is! AppDeleteInquiryLoadingState,
-                                      builder: (context) => Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(30),
-                                          color: Colors.red,
-                                        ),
-                                        width: 130,
-                                        height: 60,
-                                        child: OverflowBox(
-                                          maxWidth: double.infinity,
-                                          child: Row(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                            children: [
-                                              const Icon(
-                                                Icons.delete,
-                                                color: Colors.white,
-                                              ),
-                                              Text(LocaleKeys.BtnDelete.tr(),
-                                                  style: const TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 20)),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      fallback: (context) => const Center(
-                                          child: CircularProgressIndicator
-                                              .adaptive()),
-                                    ),
-                                  ),
-
-                                  /// you should set the default  bg color to transparent
-                                  color: Colors.transparent,
-
-                                  /// set content instead of title of icon
-                                  content:
-                                  _getIconButton(Colors.red, Icons.delete),
-                                  onTap: (handler) async {
-                                    AppCubit.get(context).deleteCart(
-                                      cartId: AppCubit.get(context)
-                                          .cartModel!
-                                          .data![index]
-                                          .id,
-                                    );
-                                  },
-                                ),
-                              ],
-                              child: Container(
-                                height: 110.0,
-                                width: 110.0,
-                                decoration: BoxDecoration(
-                                  color: whiteColor,
-                                  borderRadius: BorderRadius.circular(radius),
-                                  border: Border.all(
-                                    width: 1,
-                                    color: greyLightColor,
-                                  ),
-                                ),
-                                alignment: AlignmentDirectional.center,
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 0, horizontal: 4),
-                                child: Stack(
-                                  alignment: AlignmentDirectional.topEnd,
+                              myHorizontalDivider(),
+                              Expanded(
+                                child: Row(
                                   children: [
-                                    Row(
+                                    horizontalSmallSpace,
+                                    // Image.asset(
+                                    //   'assets/images/location.jpg',
+                                    //   width: 25,
+                                    //   height: 35,
+                                    // ),
+                                    SvgPicture.asset(
+                                      profileLocationImage,
+                                      height: 0.05.sw,
+                                    ),
+                                    myVerticalDivider(),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
-                                        horizontalMicroSpace,
-                                        CachedNetworkImageNormal(
-                                          imageUrl:
-                                          '${cartModel?.data?[index].image}',
-                                          width: 80,
-                                          height: 80,
+                                        Text(
+                                          LocaleKeys.txtReservationDetails.tr(),
+                                          style: titleStyle.copyWith(
+                                              color: greyLightColor),
                                         ),
-                                        horizontalSmallSpace,
-                                        Expanded(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                '${cartModel?.data?[index].title}',
-                                                style: titleSmallStyle,
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                              Text(
-                                                '# ${cartModel?.data?[index].cartId}',
-                                                style: subTitleSmallStyle2,
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                              Text(
-                                                '${cartModel?.data?[index].price} ${LocaleKeys.salary.tr()}',
-                                                style: titleSmallStyle2,
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                            ],
+                                        SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.7,
+                                          child: Text(
+                                            widget.branchName,
+                                            textAlign: TextAlign.start,
+                                            style: titleSmallStyle,
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
                                           ),
                                         ),
                                       ],
@@ -358,191 +476,38 @@ class _LabReservationOverviewScreenState
                                   ],
                                 ),
                               ),
-                            ),
-                            separatorBuilder: (context, index) =>
-                            verticalMiniSpace,
-                            itemCount: cartModel?.data?.length ?? 0,
-                          ),
-                        ),
-                      verticalMiniSpace,
-                      Text(
-                        LocaleKeys.txtReservationDetails.tr(),
-                        style: titleStyle.copyWith(fontWeight: FontWeight.w500),
-                      ),
-                      verticalMiniSpace,
-                      Container(
-                        height: 250.0,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: whiteColor,
-                          borderRadius: BorderRadius.circular(radius),
-                        ),
-                        alignment: AlignmentDirectional.center,
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 8, horizontal: 4),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Expanded(
-                              child: Row(
-                                children: [
-                                  horizontalSmallSpace,
-                                  Image.asset(
-                                    'assets/images/profile.png',
-                                    width: 25,
-                                    height: 35,
-                                    color: mainColor,
-                                  ),
-                                  myVerticalDivider(),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        LocaleKeys.txtPatient.tr(),
-                                        style: titleStyle.copyWith(
-                                            color: greyLightColor),
-                                      ),
-                                      if (AppCubit.get(context).isVisitor ==
-                                          false)
-                                        Text(
-                                          widget.familyName ??
-                                              AppCubit.get(context)
-                                                  .userResourceModel
-                                                  ?.data
-                                                  ?.name,
-                                          textAlign: TextAlign.start,
-                                          style: titleSmallStyle,
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                            myHorizontalDivider(),
-                            Expanded(
-                              child: Row(
-                                children: [
-                                  horizontalSmallSpace,
-                                  Image.asset(
-                                    'assets/images/location.jpg',
-                                    width: 25,
-                                    height: 35,
-                                  ),
-                                  myVerticalDivider(),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        LocaleKeys.txtReservationDetails.tr(),
-                                        style: titleStyle.copyWith(
-                                            color: greyLightColor),
-                                      ),
-                                      SizedBox(
-                                        width: MediaQuery.of(context).size.width *
-                                            0.7,
-                                        child: Text(
-                                          widget.branchName,
-                                          textAlign: TextAlign.start,
-                                          style: titleSmallStyle,
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                            myHorizontalDivider(),
-                            Expanded(
-                              child: Row(
-                                children: [
-                                  horizontalSmallSpace,
-                                  Image.asset(
-                                    'assets/images/reserved.png',
-                                    width: 25,
-                                    height: 35,
-                                    color: mainColor,
-                                  ),
-                                  myVerticalDivider(),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        LocaleKeys.AppointmentScreenTxtTitle.tr(),
-                                        style: titleStyle.copyWith(
-                                            color: greyLightColor),
-                                      ),
-                                      Text(
-                                        '${widget.date} - ${widget.time}',
-                                        textAlign: TextAlign.start,
-                                        style: titleSmallStyle,
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      verticalMiniSpace,
-                      Container(
-                        height: 120.0,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: whiteColor,
-                          borderRadius: BorderRadius.circular(radius),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                LocaleKeys.txtHaveCoupon.tr(),
-                              ),
+                              myHorizontalDivider(),
                               Expanded(
                                 child: Row(
                                   children: [
-                                    Expanded(
-                                      child: DefaultFormField(
-                                        controller: couponController,
-                                        type: TextInputType.number,
-                                        label: LocaleKeys.txtFieldCoupon.tr(),
-                                        validatedText:
-                                        LocaleKeys.txtFieldCoupon.tr(),
-                                        onTap: () {},
-                                      ),
+                                    horizontalSmallSpace,
+                                    Image.asset(
+                                      'assets/images/reserved.png',
+                                      width: 25,
+                                      height: 35,
+                                      color: mainColor,
                                     ),
-                                    horizontalMiniSpace,
-                                    InkWell(
-                                      onTap: () {
-                                        if (formKey.currentState!.validate()) {
-                                          AppCubit.get(context).checkCoupon(
-                                              coupon: couponController.text);
-                                        }
-                                      },
-                                      child: Container(
-                                        width: 55,
-                                        height: 55,
-                                        decoration: BoxDecoration(
-                                            color: darkColor,
-                                            borderRadius:
-                                            BorderRadius.circular(radius)),
-                                        child: const Icon(
-                                          Icons.send_outlined,
-                                          color: whiteColor,
-                                          size: 30,
+                                    myVerticalDivider(),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          LocaleKeys.AppointmentScreenTxtTitle
+                                              .tr(),
+                                          style: titleStyle.copyWith(
+                                              color: greyLightColor),
                                         ),
-                                      ),
+                                        Text(
+                                          '${widget.date} - ${widget.time}',
+                                          textAlign: TextAlign.start,
+                                          style: titleSmallStyle,
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
@@ -550,15 +515,157 @@ class _LabReservationOverviewScreenState
                             ],
                           ),
                         ),
-                      ),
-                      verticalMiniSpace,
-                      if (widget.testsDataModel?.id != null ||
-                          widget.offersDataModel?.id != null)
-                        ConditionalBuilder(
-                          condition: state is! AppCheckCouponLoadingState &&
-                              state is! AppGetInvoicesLoadingState,
-                          builder: (context) => Container(
-                            height: 150.0,
+                        verticalMiniSpace,
+                        Container(
+                          height: 120.0,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            color: whiteColor,
+                            borderRadius: BorderRadius.circular(radius),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  LocaleKeys.txtHaveCoupon.tr(),
+                                ),
+                                Expanded(
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: DefaultFormField(
+                                          controller: couponController,
+                                          type: TextInputType.number,
+                                          label: LocaleKeys.txtFieldCoupon.tr(),
+                                          validatedText:
+                                              LocaleKeys.txtFieldCoupon.tr(),
+                                          onTap: () {},
+                                        ),
+                                      ),
+                                      horizontalMiniSpace,
+                                      InkWell(
+                                        onTap: () {
+                                          if (formKey.currentState!
+                                              .validate()) {
+                                            AppCubit.get(context).checkCoupon(
+                                                coupon: couponController.text);
+                                          }
+                                        },
+                                        child: Container(
+                                          width: 55,
+                                          height: 55,
+                                          decoration: BoxDecoration(
+                                              color: darkColor,
+                                              borderRadius:
+                                                  BorderRadius.circular(
+                                                      radius)),
+                                          child: const Icon(
+                                            Icons.send_outlined,
+                                            color: whiteColor,
+                                            size: 30,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        verticalMiniSpace,
+                        if (widget.testsDataModel?.id != null ||
+                            widget.offersDataModel?.id != null)
+                          ConditionalBuilder(
+                            condition: state is! AppCheckCouponLoadingState &&
+                                state is! AppGetInvoicesLoadingState,
+                            builder: (context) => Container(
+                              height: 150.0,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                color: whiteColor,
+                                borderRadius: BorderRadius.circular(radius),
+                              ),
+                              alignment: AlignmentDirectional.center,
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 8, horizontal: 4),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  verticalSmallSpace,
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10.0),
+                                    child: Text(
+                                      LocaleKeys.txtSummary.tr(),
+                                      style: titleSmallStyle.copyWith(
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                    ),
+                                  ),
+                                  myHorizontalDivider(),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10.0),
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              LocaleKeys.txtPrice.tr(),
+                                              style: titleSmallStyle.copyWith(
+                                                  color: greyDarkColor,
+                                                  fontWeight:
+                                                      FontWeight.normal),
+                                            ),
+                                            const Spacer(),
+                                            Text(
+                                              '${widget.offersDataModel?.discount ?? widget.testsDataModel?.price} ${LocaleKeys.salary.tr()}',
+                                              textAlign: TextAlign.start,
+                                              style: titleSmallStyle,
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ],
+                                        ),
+                                        verticalMicroSpace,
+                                        const MySeparator(),
+                                        verticalMicroSpace,
+                                        verticalMicroSpace,
+                                        Row(
+                                          children: [
+                                            Text(
+                                              LocaleKeys.txtAddedTax.tr(),
+                                              textAlign: TextAlign.start,
+                                              style: titleSmallStyle.copyWith(
+                                                  color: greyDarkColor,
+                                                  fontWeight:
+                                                      FontWeight.normal),
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            fallback: (context) => const Center(
+                                child: CircularProgressIndicator.adaptive()),
+                          ),
+                        if (widget.testsDataModel?.id == null &&
+                            widget.offersDataModel?.id == null)
+                          Container(
+                            height: 250.0,
                             width: double.infinity,
                             decoration: BoxDecoration(
                               color: whiteColor,
@@ -590,9 +697,32 @@ class _LabReservationOverviewScreenState
                                     children: [
                                       Row(
                                         crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                            CrossAxisAlignment.center,
                                         mainAxisAlignment:
-                                        MainAxisAlignment.start,
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            LocaleKeys.txtItems.tr(),
+                                            style: titleSmallStyle.copyWith(
+                                                color: greyDarkColor,
+                                                fontWeight: FontWeight.normal),
+                                          ),
+                                          const Spacer(),
+                                          Text(
+                                            '${cartModel?.data?.length ?? 1}',
+                                            textAlign: TextAlign.start,
+                                            style: titleSmallStyle,
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ],
+                                      ),
+                                      verticalMicroSpace,
+                                      Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
                                         children: [
                                           Text(
                                             LocaleKeys.txtPrice.tr(),
@@ -602,7 +732,30 @@ class _LabReservationOverviewScreenState
                                           ),
                                           const Spacer(),
                                           Text(
-                                            '${widget.offersDataModel?.discount ?? widget.testsDataModel?.price} ${LocaleKeys.salary.tr()}',
+                                            '${cartModel?.extra?.price} ${LocaleKeys.salary.tr()}',
+                                            textAlign: TextAlign.start,
+                                            style: titleSmallStyle,
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ],
+                                      ),
+                                      verticalMicroSpace,
+                                      Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            LocaleKeys.txtVAT.tr(),
+                                            style: titleSmallStyle.copyWith(
+                                                color: greyDarkColor,
+                                                fontWeight: FontWeight.normal),
+                                          ),
+                                          const Spacer(),
+                                          Text(
+                                            '${cartModel?.extra?.tax}',
                                             textAlign: TextAlign.start,
                                             style: titleSmallStyle,
                                             maxLines: 1,
@@ -613,7 +766,28 @@ class _LabReservationOverviewScreenState
                                       verticalMicroSpace,
                                       const MySeparator(),
                                       verticalMicroSpace,
-                                      verticalMicroSpace,
+                                      Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            LocaleKeys.txtTotal.tr(),
+                                            style: titleSmallStyle.copyWith(
+                                                color: greyDarkColor,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          const Spacer(),
+                                          Text(
+                                            '${cartModel?.extra?.total} ${LocaleKeys.salary.tr()}',
+                                            textAlign: TextAlign.start,
+                                            style: titleSmallStyle,
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ],
+                                      ),
                                       Row(
                                         children: [
                                           Text(
@@ -633,237 +807,101 @@ class _LabReservationOverviewScreenState
                               ],
                             ),
                           ),
-                          fallback: (context) => const Center(
-                              child: CircularProgressIndicator.adaptive()),
-                        ),
-                      if (widget.testsDataModel?.id == null &&
-                          widget.offersDataModel?.id == null)
-                        Container(
-                          height: 250.0,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: whiteColor,
-                            borderRadius: BorderRadius.circular(radius),
-                          ),
-                          alignment: AlignmentDirectional.center,
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 8, horizontal: 4),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              verticalSmallSpace,
-                              Padding(
-                                padding:
-                                const EdgeInsets.symmetric(horizontal: 10.0),
-                                child: Text(
-                                  LocaleKeys.txtSummary.tr(),
-                                  style: titleSmallStyle.copyWith(
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                                ),
-                              ),
-                              myHorizontalDivider(),
-                              Padding(
-                                padding:
-                                const EdgeInsets.symmetric(horizontal: 10.0),
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          LocaleKeys.txtItems.tr(),
-                                          style: titleSmallStyle.copyWith(
-                                              color: greyDarkColor,
-                                              fontWeight: FontWeight.normal),
-                                        ),
-                                        const Spacer(),
-                                        Text(
-                                          '${cartModel?.data?.length ?? 1}',
-                                          textAlign: TextAlign.start,
-                                          style: titleSmallStyle,
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ],
-                                    ),
-                                    verticalMicroSpace,
-                                    Row(
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          LocaleKeys.txtPrice.tr(),
-                                          style: titleSmallStyle.copyWith(
-                                              color: greyDarkColor,
-                                              fontWeight: FontWeight.normal),
-                                        ),
-                                        const Spacer(),
-                                        Text(
-                                          '${cartModel?.extra?.price} ${LocaleKeys.salary.tr()}',
-                                          textAlign: TextAlign.start,
-                                          style: titleSmallStyle,
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ],
-                                    ),
-                                    verticalMicroSpace,
-                                    Row(
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          LocaleKeys.txtVAT.tr(),
-                                          style: titleSmallStyle.copyWith(
-                                              color: greyDarkColor,
-                                              fontWeight: FontWeight.normal),
-                                        ),
-                                        const Spacer(),
-                                        Text(
-                                          '${cartModel?.extra?.tax}',
-                                          textAlign: TextAlign.start,
-                                          style: titleSmallStyle,
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ],
-                                    ),
-                                    verticalMicroSpace,
-                                    const MySeparator(),
-                                    verticalMicroSpace,
-                                    Row(
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          LocaleKeys.txtTotal.tr(),
-                                          style: titleSmallStyle.copyWith(
-                                              color: greyDarkColor,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        const Spacer(),
-                                        Text(
-                                          '${cartModel?.extra?.total} ${LocaleKeys.salary.tr()}',
-                                          textAlign: TextAlign.start,
-                                          style: titleSmallStyle,
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        Text(
-                                          LocaleKeys.txtAddedTax.tr(),
-                                          textAlign: TextAlign.start,
-                                          style: titleSmallStyle.copyWith(
-                                              color: greyDarkColor,
-                                              fontWeight: FontWeight.normal),
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      verticalSmallSpace,
-                      ConditionalBuilder(
-                        condition: state is! AppCreateLabReservationLoadingState,
-                        builder: (context) => MaterialButton(
-                          onPressed: () {
-                            if (widget.testsDataModel?.id == null &&
-                                widget.offersDataModel?.id == null) {
-                              if (cartModel!.extra!.offers!.isNotEmpty &&
-                                  cartModel.extra!.tests!.isNotEmpty) {
-                                AppCubit.get(context).createLabReservation(
-                                  date: widget.date,
-                                  time: widget.time,
-                                  familyId: widget.familyId,
-                                  branchId: widget.branchId,
-                                  coupon: couponController.text,
-                                  offerId: cartModel.extra!.offers,
-                                  testId: cartModel.extra!.tests,
-                                );
-                              } else {
-                                if (cartModel.extra!.offers!.isEmpty) {
+                        verticalSmallSpace,
+                        ConditionalBuilder(
+                          condition:
+                              state is! AppCreateLabReservationLoadingState,
+                          builder: (context) => MaterialButton(
+                            onPressed: () {
+                              if (widget.testsDataModel?.id == null &&
+                                  widget.offersDataModel?.id == null) {
+                                if (cartModel!.extra!.offers!.isNotEmpty &&
+                                    cartModel.extra!.tests!.isNotEmpty) {
                                   AppCubit.get(context).createLabReservation(
                                     date: widget.date,
                                     time: widget.time,
                                     familyId: widget.familyId,
                                     branchId: widget.branchId,
                                     coupon: couponController.text,
-                                    testId: cartModel.extra?.tests,
+                                    offerId: cartModel.extra!.offers,
+                                    testId: cartModel.extra!.tests,
                                   );
-                                } else if (cartModel.extra!.tests!.isEmpty) {
+                                } else {
+                                  if (cartModel.extra!.offers!.isEmpty) {
+                                    AppCubit.get(context).createLabReservation(
+                                      date: widget.date,
+                                      time: widget.time,
+                                      familyId: widget.familyId,
+                                      branchId: widget.branchId,
+                                      coupon: couponController.text,
+                                      testId: cartModel.extra?.tests,
+                                    );
+                                  } else if (cartModel.extra!.tests!.isEmpty) {
+                                    AppCubit.get(context).createLabReservation(
+                                        date: widget.date,
+                                        time: widget.time,
+                                        familyId: widget.familyId,
+                                        branchId: widget.branchId,
+                                        coupon: couponController.text,
+                                        offerId: cartModel.extra?.offers);
+                                  }
+                                }
+                              } else {
+                                if (widget.testsDataModel?.id == null) {
+                                  AppCubit.get(context).createLabReservation(
+                                    date: widget.date,
+                                    time: widget.time,
+                                    familyId: widget.familyId,
+                                    branchId: widget.branchId,
+                                    coupon: couponController.text,
+                                    offerId: [widget.offersDataModel?.id],
+                                  );
+                                } else if (widget.offersDataModel?.id == null) {
                                   AppCubit.get(context).createLabReservation(
                                       date: widget.date,
                                       time: widget.time,
                                       familyId: widget.familyId,
                                       branchId: widget.branchId,
                                       coupon: couponController.text,
-                                      offerId: cartModel.extra?.offers);
+                                      testId: ['${widget.testsDataModel?.id}']);
                                 }
                               }
-                            } else {
-                              if (widget.testsDataModel?.id == null) {
-                                AppCubit.get(context).createLabReservation(
-                                  date: widget.date,
-                                  time: widget.time,
-                                  familyId: widget.familyId,
-                                  branchId: widget.branchId,
-                                  coupon: couponController.text,
-                                  offerId: [widget.offersDataModel?.id],
-                                );
-                              } else if (widget.offersDataModel?.id == null) {
-                                AppCubit.get(context).createLabReservation(
-                                    date: widget.date,
-                                    time: widget.time,
-                                    familyId: widget.familyId,
-                                    branchId: widget.branchId,
-                                    coupon: couponController.text,
-                                    testId: ['${widget.testsDataModel?.id}']);
-                              }
-                            }
-                          },
-                          child: Container(
-                            height: 50,
-                            decoration: BoxDecoration(
-                              color: mainColor,
-                              borderRadius: BorderRadius.circular(radius),
-                            ),
-                            child: Center(
-                              child: Text(
-                                LocaleKeys.BtnConfirm.tr(),
-                                style: titleStyle.copyWith(
-                                  fontSize: 20.0,
-                                  color: whiteColor,
-                                  fontWeight: FontWeight.normal,
+                            },
+                            child: Container(
+                              height: 50,
+                              decoration: BoxDecoration(
+                                color: mainColor,
+                                borderRadius: BorderRadius.circular(radius),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  LocaleKeys.BtnConfirm.tr(),
+                                  style: titleStyle.copyWith(
+                                    fontSize: 20.0,
+                                    color: whiteColor,
+                                    fontWeight: FontWeight.normal,
+                                  ),
                                 ),
                               ),
                             ),
                           ),
+                          fallback: (context) => const Center(
+                              child: CircularProgressIndicator.adaptive()),
                         ),
-                        fallback: (context) => const Center(
-                            child: CircularProgressIndicator.adaptive()),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
+              fallback: (context) =>
+                  const Center(child: CircularProgressIndicator.adaptive()),
             ),
-            fallback: (context) => const Center(child: CircularProgressIndicator.adaptive()),
           ),
         );
       },
     );
   }
+
   Widget _getIconButton(color, icon) {
     return Container(
       width: 50,

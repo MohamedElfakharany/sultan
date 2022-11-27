@@ -171,7 +171,7 @@ class GeneralUnfilledButton extends StatelessWidget {
               color: Colors.grey.withOpacity(0.15),
               spreadRadius: 2,
               blurRadius: 2,
-              offset: Offset(0, 2),
+              offset: const Offset(0, 2),
             ),
           ],
           color: whiteColor,
@@ -958,8 +958,8 @@ void showCustomBottomSheet(
   required double bottomSheetHeight,
 }) {
   showModalBottomSheet(
-      shape: RoundedRectangleBorder(
-        borderRadius: const BorderRadius.vertical(
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
           top: Radius.circular(20.0),
         ),
       ),

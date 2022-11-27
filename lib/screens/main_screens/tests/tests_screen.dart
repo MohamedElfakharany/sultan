@@ -76,7 +76,7 @@ class _TestsScreenState extends State<TestsScreen> {
                                               Colors.grey.withOpacity(0.15),
                                           spreadRadius: 2,
                                           blurRadius: 2,
-                                          offset: Offset(0, 2),
+                                          offset: const Offset(0, 2),
                                         ),
                                       ],
                                       color: whiteColor,
@@ -127,7 +127,7 @@ class _TestsScreenState extends State<TestsScreen> {
                                               Colors.grey.withOpacity(0.15),
                                           spreadRadius: 2,
                                           blurRadius: 2,
-                                          offset: Offset(0, 2),
+                                          offset: const Offset(0, 2),
                                         ),
                                       ],
                                       color: whiteColor,
@@ -171,45 +171,6 @@ class _TestsScreenState extends State<TestsScreen> {
                         // first tab bar view widget
                         Column(
                           children: [
-                            // verticalSmallSpace,
-                            // Padding(
-                            //   padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                            //   child: Container(
-                            //     height: 60,
-                            //     alignment: AlignmentDirectional.center,
-                            //     padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 4),
-                            //     child: TextFormField(
-                            //       controller: searchController,
-                            //       keyboardType: TextInputType.text,
-                            //       decoration: const InputDecoration(
-                            //         prefixIcon: Icon(Icons.search),
-                            //         label: Text('Search'),
-                            //         hintStyle: TextStyle(color: greyDarkColor, fontSize: 14),
-                            //         labelStyle: TextStyle(
-                            //           // color: isClickable ? Colors.grey[400] : blueColor,
-                            //             color: greyDarkColor,
-                            //             fontSize: 14),
-                            //         fillColor: Colors.white,
-                            //         filled: true,
-                            //         errorStyle: TextStyle(color: redColor),
-                            //         contentPadding: EdgeInsetsDirectional.only(
-                            //             start: 20.0, end: 10.0, bottom: 0.0, top: 0.0),
-                            //         border: OutlineInputBorder(
-                            //           borderSide: BorderSide(
-                            //             width: 1,
-                            //             color: greyExtraLightColor,
-                            //           ),
-                            //         ),
-                            //       ),
-                            //       style: const TextStyle(
-                            //         color: blueLightColor,
-                            //         fontSize: 18,
-                            //         fontFamily: fontFamily,
-                            //       ),
-                            //       maxLines: 1,
-                            //     ),
-                            //   ),
-                            // ),
                             verticalSmallSpace,
                             Expanded(
                               child: Padding(
@@ -305,68 +266,7 @@ class _TestsScreenState extends State<TestsScreen> {
                   ),
                 ],
               ),
-              // Column(
-              //   children: [
-              //     // verticalSmallSpace,
-              //     Expanded(
-              //       child: Padding(
-              //         padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 10.0),
-              //         child: GridView.count(
-              //           shrinkWrap: true,
-              //           physics: const BouncingScrollPhysics(),
-              //           crossAxisCount: 2,
-              //           mainAxisSpacing: 20.0,
-              //           crossAxisSpacing: 20.0,
-              //           childAspectRatio: 1 / 1,
-              //           children: List.generate(
-              //             15,
-              //             (index) => InkWell(
-              //               onTap: () {
-              //                 Navigator.push(
-              //                   context,
-              //                   FadeRoute(
-              //                     page: const TestItemsScreen(),
-              //                   ),
-              //                 );
-              //               },
-              //               child: Container(
-              //                 height: 110.0,
-              //                 width: 110.0,
-              //                 decoration: BoxDecoration(
-              //                   color: whiteColor,
-              //                   borderRadius: BorderRadius.circular(radius),
-              //                   border: Border.all(
-              //                     width: 1,
-              //                     color: greyDarkColor,
-              //                   ),
-              //                 ),
-              //                 alignment: AlignmentDirectional.center,
-              //                 padding:
-              //                     const EdgeInsets.symmetric(vertical: 0, horizontal: 4),
-              //                 child: Column(
-              //                   mainAxisAlignment: MainAxisAlignment.center,
-              //                   children: [
-              //                     CachedNetworkImageNormal(
-              //                       imageUrl: imageTest,
-              //                       width: 100,
-              //                       height: 100,
-              //                     ),
-              //                     verticalSmallSpace,
-              //                     const Text(
-              //                       'Sugar Text',
-              //                       style: titleSmallStyle,
-              //                       overflow: TextOverflow.ellipsis,
-              //                     ),
-              //                   ],
-              //                 ),
-              //               ),
-              //             ),
-              //           ),
-              //         ),
-              //       ),
-              //     ),
-              //   ],
-              // ),
+
             ),
           );
         });

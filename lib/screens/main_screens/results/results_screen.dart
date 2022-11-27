@@ -207,7 +207,7 @@ class _ResultsScreenState extends State<ResultsScreen> {
                         children: [
                           // first tab bar view widget
                           ConditionalBuilder(
-                            condition: AppCubit.get(context).labResultsModel!.data!.isEmpty,
+                            condition: AppCubit.get(context).labResultsModel?.data != null,
                             builder: (context)=> Column(
                               children: [
                                 verticalSmallSpace,

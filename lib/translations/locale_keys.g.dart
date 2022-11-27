@@ -5,6 +5,7 @@
 abstract class  LocaleKeys {
   static const onboardingTitle = 'onboardingTitle';
   static const onboardingBody = 'onboardingBody';
+  static const txtTestCategoriesMain = 'txtTestCategoriesMain';
   static const txtNow = 'txtNow';
   static const txtFieldNationality = 'txtFieldNationality';
   static const loginTxtMain = 'loginTxtMain';

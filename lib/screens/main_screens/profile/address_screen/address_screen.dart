@@ -44,7 +44,7 @@ class _AddressScreenState extends State<AddressScreen> {
     PermissionStatus result;
     // In Android we need to request the storage permission,
     // while in iOS is the photos permission
-    if (Platform.isAndroid || Platform.isIOS) {
+    if (Platform.isAndroid) {
       result = await Permission.location.request();
     } else {
       result = await Permission.locationAlways.request();

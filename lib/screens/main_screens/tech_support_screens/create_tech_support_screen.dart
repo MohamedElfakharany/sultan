@@ -157,7 +157,7 @@ class _CreateTechSupportScreenState extends State<CreateTechSupportScreen> {
                     ),
                     verticalMiniSpace,
                     Container(
-                      height: 210.0,
+                      height: 275.0,
                       width: double.infinity,
                       decoration: BoxDecoration(
                         color: whiteColor,
@@ -197,9 +197,9 @@ class _CreateTechSupportScreenState extends State<CreateTechSupportScreen> {
                                   locale: LocaleType.en);
                             },
                           ),
-                          horizontalMiniSpace,
+                          const Spacer(),
                           myHorizontalDivider(),
-                          horizontalMiniSpace,
+                          const Spacer(),
                           DefaultFormField(
                             controller: timeController,
                             type: TextInputType.none,
@@ -226,70 +226,70 @@ class _CreateTechSupportScreenState extends State<CreateTechSupportScreen> {
                                   locale: LocaleType.en);
                             },
                           ),
+                          const Spacer(),
                           myHorizontalDivider(),
-                          Expanded(
-                            child: DropdownButtonHideUnderline(
-                              child: DropdownButtonFormField<String>(
-                                validator: (value) {
-                                  if (value == null) {
-                                    return 'Location Required';
-                                  }
-                                },
-                                hint: Text(
-                                  LocaleKeys.TxtFieldAddressOfVisit.tr(),
-                                ),
-                                decoration: InputDecoration(
-                                  prefixIcon: const Icon(
-                                    Icons.location_on_rounded,
-                                    color: greyLightColor,
-                                    size: 30,
-                                  ),
-                                  contentPadding: const EdgeInsetsDirectional.only(
-                                      start: 20.0,
-                                      end: 0.0,
-                                      bottom: 0.0,
-                                      top: 10.0),
-                                  fillColor: Colors.white,
-                                  filled: true,
-                                  errorStyle:
-                                      const TextStyle(color: Color(0xFF4F4F4F)),
-                                  border: InputBorder.none,
-                                  suffixIcon: IconButton(
-                                    onPressed: () {
-                                      AppCubit.get(context).getAddress();
-                                      Navigator.push(
-                                        context,
-                                        FadeRoute(
-                                          page: const AddressScreen(),
-                                        ),
-                                      );
-                                    },
-                                    icon: const Icon(
-                                      Icons.add_location_alt_outlined,
-                                      color: mainColor,
-                                    ),
-                                  ),
-                                ),
-                                value: locationValue,
-                                isExpanded: true,
-                                iconSize: 30,
-                                icon: const Icon(
-                                  Icons.keyboard_arrow_down_rounded,
-                                  color: mainColor,
-                                ),
-                                items: AppCubit.get(context)
-                                    .addressName
-                                    .map(buildLocationItem)
-                                    .toList(),
-                                onChanged: (value) => setState(() {
-                                  locationValue = value;
-                                  AppCubit.get(context)
-                                      .selectAddressId(address: locationValue!);
-                                }),
-                                onSaved: (v) {
-                                  FocusScope.of(context).unfocus();
-                                },
+                          const Spacer(),
+                          DropdownButtonHideUnderline(
+                            child: DropdownButtonFormField<String>(
+                              validator: (value) {
+                                if (value == null) {
+                                  return 'Location Required';
+                                }
+                              },
+                              hint: Text(
+                                LocaleKeys.TxtFieldAddressOfVisit.tr(),
                               ),
+                              decoration: InputDecoration(
+                                prefixIcon: const Icon(
+                                  Icons.location_on_rounded,
+                                  color: greyLightColor,
+                                  size: 30,
+                                ),
+                                contentPadding: const EdgeInsetsDirectional.only(
+                                    start: 20.0,
+                                    end: 0.0,
+                                    bottom: 0.0,
+                                    top: 10.0),
+                                fillColor: Colors.white,
+                                filled: true,
+                                errorStyle:
+                                    const TextStyle(color: Color(0xFF4F4F4F)),
+                                border: InputBorder.none,
+                                suffixIcon: IconButton(
+                                  onPressed: () {
+                                    AppCubit.get(context).getAddress();
+                                    Navigator.push(
+                                      context,
+                                      FadeRoute(
+                                        page: const AddressScreen(),
+                                      ),
+                                    );
+                                  },
+                                  icon: const Icon(
+                                    Icons.add_location_alt_outlined,
+                                    color: mainColor,
+                                  ),
+                                ),
+                              ),
+                              value: locationValue,
+                              isExpanded: true,
+                              iconSize: 30,
+                              icon: const Icon(
+                                Icons.keyboard_arrow_down_rounded,
+                                color: mainColor,
+                              ),
+                              items: AppCubit.get(context)
+                                  .addressName
+                                  .map(buildLocationItem)
+                                  .toList(),
+                              onChanged: (value) => setState(() {
+                                locationValue = value;
+                                AppCubit.get(context)
+                                    .selectAddressId(address: locationValue!);
+                              }),
+                              onSaved: (v) {
+                                FocusScope.of(context).unfocus();
+                              },
                             ),
                           ),
                         ],

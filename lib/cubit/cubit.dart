@@ -1499,6 +1499,7 @@ class AppCubit extends Cubit<AppStates> {
       var responseJsonB = response.data;
       var convertedResponse = utf8.decode(responseJsonB);
       var responseJson = json.decode(convertedResponse);
+
       labAppointmentsModel = null;
       labAppointmentsModel = LabAppointmentsModel.fromJson(responseJson);
       emit(AppGetLabAppointmentsSuccessState(labAppointmentsModel!));
@@ -1657,6 +1658,7 @@ class AppCubit extends Cubit<AppStates> {
         // print('formData : ${formData.fields}');
       }
       successModel = SuccessModel.fromJson(responseJson);
+      getCart();
       emit(AppCreateLabReservationSuccessState(successModel!));
     } catch (error) {
       emit(AppCreateLabReservationErrorState(error.toString()));
@@ -1785,6 +1787,7 @@ class AppCubit extends Cubit<AppStates> {
         // print('formData : ${formData.fields}');
       }
       successModel = SuccessModel.fromJson(responseJson);
+      getCart();
       emit(AppCreateHomeReservationSuccessState(successModel!));
     } catch (error) {
       emit(AppCreateHomeReservationErrorState(error.toString()));
@@ -1885,9 +1888,7 @@ class AppCubit extends Cubit<AppStates> {
       var responseJsonB = response.data;
       var convertedResponse = utf8.decode(responseJsonB);
       var responseJson = json.decode(convertedResponse);
-      print('homeResultsModel : $responseJson');
       homeResultsModel = HomeResultsModel.fromJson(responseJson);
-      print('homeResultsModel : ${homeResultsModel?.extra?.pagination?.count}');
       emit(AppGetHomeResultsSuccessState(homeResultsModel!));
     } catch (error) {
       emit(AppGetHomeResultsErrorState(error.toString()));
