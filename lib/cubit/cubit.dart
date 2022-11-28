@@ -1783,8 +1783,8 @@ class AppCubit extends Cubit<AppStates> {
       var convertedResponse = utf8.decode(responseJsonB);
       var responseJson = json.decode(convertedResponse);
       if (kDebugMode) {
-        // print('responseJson : $responseJson');
-        // print('formData : ${formData.fields}');
+        print('responseJson : $responseJson');
+        print('formData : ${formData.fields}');
       }
       successModel = SuccessModel.fromJson(responseJson);
       getCart();
@@ -1816,6 +1816,7 @@ class AppCubit extends Cubit<AppStates> {
       var convertedResponse = utf8.decode(responseJsonB);
       var responseJson = json.decode(convertedResponse);
       homeReservationsModel = HomeReservationsModel.fromJson(responseJson);
+      print(responseJson);
       emit(AppGetHomeReservationsSuccessState(homeReservationsModel!));
     } catch (error) {
       emit(AppGetHomeReservationsErrorState(error.toString()));

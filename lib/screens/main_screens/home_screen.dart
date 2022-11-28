@@ -380,7 +380,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       ),
                       ConditionalBuilder(
-                        condition: cubit.offersModel?.data != null,
+                        condition: cubit.offersModel?.data == null,
                         builder: (context) => ConditionalBuilder(
                           condition: state is! AppGetOffersLoadingState,
                           builder: (context) => SizedBox(

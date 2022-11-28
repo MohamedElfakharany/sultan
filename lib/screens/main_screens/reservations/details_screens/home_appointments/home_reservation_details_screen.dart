@@ -164,7 +164,7 @@ class _HomeReservationDetailsScreenState
                     ),
                     verticalMiniSpace,
                     Container(
-                      // height: 150.0,
+                      height: 150.0,
                       width: double.infinity,
                       decoration: BoxDecoration(
                         color: whiteColor,

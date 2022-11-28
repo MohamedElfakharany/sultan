@@ -1098,19 +1098,22 @@ class VisitorHoldingPopUp extends StatelessWidget {
             style: titleStyle,
           ),
           verticalLargeSpace,
-          GeneralButton(
-              title: LocaleKeys.BtnSignIn.tr(),
-              onPress: () {
-                AppCubit
-                    .get(context)
-                    .currentIndex = 0;
-                Navigator.pushAndRemoveUntil(
-                    context,
-                    FadeRoute(
-                      page: OnBoardingScreen(),
-                    ),
-                        (route) => false);
-              }),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: GeneralButton(
+                title: LocaleKeys.BtnSignIn.tr(),
+                onPress: () {
+                  AppCubit
+                      .get(context)
+                      .currentIndex = 0;
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      FadeRoute(
+                        page: OnBoardingScreen(),
+                      ),
+                          (route) => false);
+                }),
+          ),
           verticalLargeSpace,
         ],
       ),

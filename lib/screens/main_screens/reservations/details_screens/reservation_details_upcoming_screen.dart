@@ -12,7 +12,6 @@ import 'package:sultan/models/patient_models/home_appointments_model/home_reserv
 import 'package:sultan/models/patient_models/lab_appointments_model/lab_reservation_model.dart';
 import 'package:sultan/screens/main_screens/home_layout_screen.dart';
 import 'package:sultan/screens/main_screens/reservations/widget_components.dart';
-import 'package:sultan/shared/components/cached_network_image.dart';
 import 'package:sultan/shared/components/general_components.dart';
 import 'package:sultan/shared/constants/colors.dart';
 import 'package:sultan/shared/constants/general_constants.dart';
@@ -164,99 +163,119 @@ class ReservationDetailsUpcomingScreen extends StatelessWidget {
                   if (homeReservationsDataModel != null)
                     if (homeReservationsDataModel.tests!.isNotEmpty)
                       SizedBox(
-                        height: 120.0 * (homeReservationsDataModel.tests?.length ?? 0),
+                        height: 120.0 *
+                            (homeReservationsDataModel.tests?.length ?? 0),
                         child: ListView.separated(
                           physics: const NeverScrollableScrollPhysics(),
                           scrollDirection: Axis.vertical,
                           itemBuilder: (context, index) {
-                            title = homeReservationsDataModel.tests![index].title;
-                            price = homeReservationsDataModel.tests![index].price;
-                            image = homeReservationsDataModel.tests![index].image;
-                            print('index : $index');
+                            title =
+                                homeReservationsDataModel.tests![index].title;
+                            price =
+                                homeReservationsDataModel.tests![index].price;
+                            image =
+                                homeReservationsDataModel.tests![index].image;
                             return ReservationInCartCard(
                               title: title,
                               image: image,
                               price: price,
                             );
                           },
-                          separatorBuilder: (context, index) => verticalMiniSpace,
+                          separatorBuilder: (context, index) =>
+                              verticalMiniSpace,
                           itemCount:
-                          ((homeReservationsDataModel.offers?.length ?? 0) +
-                              (homeReservationsDataModel.tests?.length ?? 0)),
+                              ((homeReservationsDataModel.offers?.length ?? 0) +
+                                  (homeReservationsDataModel.tests?.length ??
+                                      0)),
                         ),
                       ),
                   if (homeReservationsDataModel != null)
                     if (homeReservationsDataModel.offers!.isNotEmpty)
                       SizedBox(
-                        height: 120.0 * (homeReservationsDataModel.offers?.length ?? 0) ,
+                        height: 120.0 *
+                            (homeReservationsDataModel.offers?.length ?? 0),
                         child: ListView.separated(
                           physics: const NeverScrollableScrollPhysics(),
                           scrollDirection: Axis.vertical,
                           itemBuilder: (context, index) {
-                            title = homeReservationsDataModel.offers![index].title;
-                            price = homeReservationsDataModel.offers![index].price;
-                            image = homeReservationsDataModel.offers![index].image;
-                            print('index : $index');
+                            title =
+                                homeReservationsDataModel.offers![index].title;
+                            price =
+                                homeReservationsDataModel.offers![index].price;
+                            image =
+                                homeReservationsDataModel.offers![index].image;
                             return ReservationInCartCard(
                               title: title,
                               image: image,
                               price: price,
                             );
                           },
-                          separatorBuilder: (context, index) => verticalMiniSpace,
+                          separatorBuilder: (context, index) =>
+                              verticalMiniSpace,
                           itemCount:
-                          ((homeReservationsDataModel.offers?.length ?? 0) +
-                              (homeReservationsDataModel.tests?.length ?? 0)),
+                              ((homeReservationsDataModel.offers?.length ?? 0) +
+                                  (homeReservationsDataModel.tests?.length ??
+                                      0)),
                         ),
                       ),
                   if (labReservationsDataModel != null)
                     if (labReservationsDataModel.tests!.isNotEmpty)
                       SizedBox(
-                      height: 120.0 * (labReservationsDataModel.tests?.length ?? 0),
-                      child: ListView.separated(
-                        physics: const NeverScrollableScrollPhysics(),
-                        scrollDirection: Axis.vertical,
-                        itemBuilder: (context, index) {
-                          title = labReservationsDataModel.tests![index].title;
-                          price = labReservationsDataModel.tests![index].price;
-                          image = labReservationsDataModel.tests![index].image;
-                          print('index : $index');
-                          return ReservationInCartCard(
-                            title: title,
-                            image: image,
-                            price: price,
-                          );
-                        },
-                        separatorBuilder: (context, index) => verticalMiniSpace,
-                        itemCount:
-                            ((labReservationsDataModel.offers?.length ?? 0) +
-                                (labReservationsDataModel.tests?.length ?? 0)),
+                        height: 120.0 *
+                            (labReservationsDataModel.tests?.length ?? 0),
+                        child: ListView.separated(
+                          physics: const NeverScrollableScrollPhysics(),
+                          scrollDirection: Axis.vertical,
+                          itemBuilder: (context, index) {
+                            title =
+                                labReservationsDataModel.tests![index].title;
+                            price =
+                                labReservationsDataModel.tests![index].price;
+                            image =
+                                labReservationsDataModel.tests![index].image;
+                            return ReservationInCartCard(
+                              title: title,
+                              image: image,
+                              price: price,
+                            );
+                          },
+                          separatorBuilder: (context, index) =>
+                              verticalMiniSpace,
+                          itemCount:
+                              ((labReservationsDataModel.offers?.length ?? 0) +
+                                  (labReservationsDataModel.tests?.length ??
+                                      0)),
+                        ),
                       ),
-                    ),
                   if (labReservationsDataModel != null)
                     if (labReservationsDataModel.offers!.isNotEmpty)
                       SizedBox(
-                      height: 120.0 * (labReservationsDataModel.offers?.length ?? 0) ,
-                      child: ListView.separated(
-                        physics: const NeverScrollableScrollPhysics(),
-                        scrollDirection: Axis.vertical,
-                        itemBuilder: (context, index) {
-                          title = labReservationsDataModel.offers![index].title;
-                          price = labReservationsDataModel.offers![index].price;
-                          image = labReservationsDataModel.offers![index].image;
-                          print('index : $index');
-                          return ReservationInCartCard(
-                            title: title,
-                            image: image,
-                            price: price,
-                          );
-                        },
-                        separatorBuilder: (context, index) => verticalMiniSpace,
-                        itemCount:
-                        ((labReservationsDataModel.offers?.length ?? 0) +
-                            (labReservationsDataModel.tests?.length ?? 0)),
+                        height: 120.0 *
+                            (labReservationsDataModel.offers?.length ?? 0),
+                        child: ListView.separated(
+                          physics: const NeverScrollableScrollPhysics(),
+                          scrollDirection: Axis.vertical,
+                          itemBuilder: (context, index) {
+                            title =
+                                labReservationsDataModel.offers![index].title;
+                            price =
+                                labReservationsDataModel.offers![index].price;
+                            image =
+                                labReservationsDataModel.offers![index].image;
+                            return ReservationInCartCard(
+                              title: title,
+                              image: image,
+                              price: price,
+                            );
+                          },
+                          separatorBuilder: (context, index) =>
+                              verticalMiniSpace,
+                          itemCount:
+                              ((labReservationsDataModel.offers?.length ?? 0) +
+                                  (labReservationsDataModel.tests?.length ??
+                                      0)),
+                        ),
                       ),
-                    ),
                   verticalMiniSpace,
                   Text(
                     LocaleKeys.txtReservationDetails.tr(),
